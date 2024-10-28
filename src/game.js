@@ -1,6 +1,7 @@
-import gsap, { Power0 } from "gsap";
+//import gsap, { Power0 } from "gsap";
 import { Container, Sprite } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
+import uiAnimationManager from "./uiAnimationManager";
 
 export default class Game extends Container {
 
@@ -11,21 +12,35 @@ export default class Game extends Container {
   }
 
   init() {
-    let sprite = Sprite.from("logo");
+    let logoSprite = Sprite.from("logo");
+    this.SetLogoSprite(logoSprite);
+    uiAnimationManager.playLogoAnimationOnStart(logoSprite, 0.6, 1, 1.5, 0.5, () => {
+      this.removeChild(logoSprite);
+      //DEV-NOTE(BATUHAN UYSAL): !!!!IF WE DONT USE THIS SPRITE AGAIN IN-GAME, WE HAVE TO DELETE THIS SPRITE FROM THE MEMORY TO OPTIMIZE MEMORY ALLOCATION!!!!
+      //sprite.destroy({ children: true, texture: true, baseTexture: true }); 
+      console.log("callback animation workd")
+    });
+
+
+  }
+
+  SetLogoSprite(sprite) {
     sprite.anchor.set(0.5);
     sprite.scale.set(0.5);
     this.addChild(sprite);
     sprite.x = GAME_WIDTH * 0.5;
     sprite.y = GAME_HEIGHT * 0.5;
-
-    gsap.to(sprite, {
-      pixi: {
-        scale: 0.6,
-      },
-      duration: 1,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.easeInOut",
-    })
   }
+
+  SetScene()
+  {
+    this.SetBackground();
+  }
+
+  SetBackground()
+  {
+/*     let background = Sprite.from("background");
+    this.addChild(background); */
+  }
+
 }

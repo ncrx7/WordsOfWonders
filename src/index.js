@@ -9,7 +9,7 @@ export const GAME_WIDTH = 480;
 export const GAME_HEIGHT = 800;
 
 export const app = new Application({
-  backgroundColor: 0x000000,
+  backgroundColor: 0x00000,
   antialias: true,
   hello: true,
   width: GAME_WIDTH,
