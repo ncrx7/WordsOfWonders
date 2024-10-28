@@ -15,7 +15,7 @@ class uiAnimationManager {
     playLogoAnimationOnStart(sprite, logoScaleAmount, logoRepeatAmount, logoRepeatDurationTime, fadeAnimDurationTime, callBack) {
         gsap.to(sprite, {
             pixi: {
-                scale: 0.6,
+                scale: logoScaleAmount,
             },
             duration: logoRepeatDurationTime,
             repeat: logoRepeatAmount,
