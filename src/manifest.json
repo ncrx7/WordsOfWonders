@@ -6,6 +6,10 @@
         {
           "name": "logo",
           "srcs": "assets/core/logo_white.png"
+        },
+        {
+          "name": "background",
+          "srcs": "assets/Sprites/bg.png"
         }
       ]
     },
