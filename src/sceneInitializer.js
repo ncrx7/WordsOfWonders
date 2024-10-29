@@ -1,6 +1,7 @@
-import { Container, Sprite, Graphics } from "pixi.js";
+import { Container, Sprite, Graphics, Text, TextStyle } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
 import letterCell from "./letterCell";
+import letter from "./letter";
 import letterCellManagerInstance from "./letterCellManager";
 
 
@@ -13,12 +14,28 @@ class sceneInitializer {
         else {
             sceneInitializer.instance = this;
         }
+        const words = ["GOLD", "GOD", "DOG", "LOG"]; //DEV-NOTE(Batuhan Uysal): ---I MADE IT LIKE THAT BECAUSE IT WOULD BE EASY FOR DEVELOP IF WE WANT TO MORE THAN ONE LEVEL---
+        this.letters = this.SetLetters(words);
+        //console.log("scene initializer instantiated" + letters.length);
     }
+
+    SetLetters(words) {
+        const uniqueLetters = new Set(); //DEV-NOTE(Batuhan Uysal): ---I WANT TO ONLY ONE SAME CHARACTER IN THE ARRAY SO I USED SET DATA TYPE---
+    
+        words.forEach(word => {
+          word.split("").forEach(letter => {
+            uniqueLetters.add(letter);
+          });
+        });
+    
+        return Array.from(uniqueLetters); 
+      }
 
     async SetScene(game) {
         console.log("set scene from scene initiliazer");
         await this.SetBackground(game, 1);
-        await this.SetTopLetterContainer(game);
+        await this.SetBotLetterContainer(game);
+        await this.SetTopLetterCellContainer(game);
     }
 
     SetBackground(game, delayAfterLoadBackground) {
@@ -34,8 +51,20 @@ class sceneInitializer {
         });
     }
 
+     SetBotLetterContainer(game)
+    {
+        return new Promise(async (resolve) => {
+            for (let i = 0; i < this.letters.length; i++) {
+                const char = this.letters[i];
+                this.CreateLetter(game, char, i * 60, 650);
+            }
+            
+            resolve();
+        });
+    } 
+
     //DEV-NOTE-TODO(BATUHAN UYSAL): ---HERE CAN BE PROCEDURAL BY CREATING A GRID SYSTEM AND INCLUDES LETTER AND CELL
-    SetTopLetterContainer(game) {
+    SetTopLetterCellContainer(game) {
         return new Promise(async (resolve) => {
             await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 1, 20, "K");
             await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 2, 20, "D");
@@ -49,6 +78,19 @@ class sceneInitializer {
             console.log(letterCellManagerInstance.getCellFromArrayByIndex(1));
             resolve();
         });
+    }
+
+    CreateLetter(game, letterChar, x, y)
+    {
+        const text = new Text(letterChar, {
+            fontFamily: 'Arial',
+            fontSize: 74,
+            fill: 0xFF7F00,
+            align: 'center',
+        });
+        text.position.set(x, y);
+        game.addChild(text);
+        const letterObject = new letter(letterChar, text);
     }
 
    
