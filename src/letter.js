@@ -1,9 +1,13 @@
 import { Container, Sprite, Graphics, Text } from "pixi.js";
 
 export default class letter {
-    constructor(letterChar, textObject) {
+    constructor(positionX, positionY, letterChar, textObject) {
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.letterChar = letterChar;
         this.textObject = textObject;
+
+        this.setTextPosition();
     }
 
     setTextPosition() {

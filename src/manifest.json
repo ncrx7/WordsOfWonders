@@ -14,6 +14,10 @@
         {
           "name": "rect",
           "srcs": "assets/Sprites/rect.png"
+        },
+        {
+          "name": "circle",
+          "srcs": "assets/Sprites/circle.png"
         }
       ]
     },
