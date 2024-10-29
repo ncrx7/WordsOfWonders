@@ -28,7 +28,7 @@ class sceneInitializer {
         await this.SetBackground(game, 1);
         await this.SetBotLetterContainer(game);
         await this.SetTopLetterCellContainer(game);
-        await this.setInputEvents();
+        await this.setInputEvents(game);
     }
 
     SetBackground(game, delayAfterLoadBackground) {
@@ -69,9 +69,10 @@ class sceneInitializer {
         });
     }
 
-    setInputEvents() {
+    setInputEvents(game) {
         return new Promise(async (resolve) => {
-            inputManagerInstance.addEventAllTheLetterObject(letterManagerInstance.letterObjects);
+            inputManagerInstance.addEventAllTheLetterObject(letterManagerInstance.letterObjects, game);
+            inputManagerInstance.addSceneEvents(game);
         });
     }
 

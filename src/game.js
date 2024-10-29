@@ -23,7 +23,7 @@ export default class Game extends Container {
       sceneInitializerInstance.SetScene(this);
     });
 
-
+    
   }
 
   SetLogoSprite(sprite) {

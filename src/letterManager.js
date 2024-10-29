@@ -63,7 +63,7 @@ class letterManager {
 
                 //textObject.eventMode = 'static';
                 //textObject.cursor = 'pointer';
-
+                //textObject.on("pointer")
                 letterContainer.addChild(textObject);
         
                 const letterObject = new letter(this.letterPositions[i][0], this.letterPositions[i][1], char, textObject);
