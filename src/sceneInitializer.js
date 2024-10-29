@@ -3,6 +3,7 @@ import { GAME_HEIGHT, GAME_WIDTH } from ".";
 import letterCell from "./letterCell";
 import letter from "./letter";
 import letterCellManagerInstance from "./letterCellManager";
+import letterManagerInstance from "./letterManager";
 
 
 //DEV-NOTE(BATUHAN UYSAL): ---I MAKE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE FOR UI ANIMATIONS ON THE WHOLE GAME---
@@ -15,21 +16,11 @@ class sceneInitializer {
             sceneInitializer.instance = this;
         }
         const words = ["GOLD", "GOD", "DOG", "LOG"]; //DEV-NOTE(Batuhan Uysal): ---I MADE IT LIKE THAT BECAUSE IT WOULD BE EASY FOR DEVELOP IF WE WANT TO MORE THAN ONE LEVEL---
-        this.letters = this.SetLetters(words);
+        letterManagerInstance.setLetters(words);
         //console.log("scene initializer instantiated" + letters.length);
     }
 
-    SetLetters(words) {
-        const uniqueLetters = new Set(); //DEV-NOTE(Batuhan Uysal): ---I WANT TO ONLY ONE SAME CHARACTER IN THE ARRAY SO I USED SET DATA TYPE---
-    
-        words.forEach(word => {
-          word.split("").forEach(letter => {
-            uniqueLetters.add(letter);
-          });
-        });
-    
-        return Array.from(uniqueLetters); 
-      }
+
 
     async SetScene(game) {
         console.log("set scene from scene initiliazer");
@@ -47,17 +38,14 @@ class sceneInitializer {
 
             setTimeout(() => {
                 resolve();
-            }, delayAfterLoadBackground * 1000);
+            }, delayAfterLoadBackground * 500);
         });
     }
 
      SetBotLetterContainer(game)
     {
         return new Promise(async (resolve) => {
-            for (let i = 0; i < this.letters.length; i++) {
-                const char = this.letters[i];
-                this.CreateLetter(game, char, i * 60, 650);
-            }
+            await letterManagerInstance.createLetters(100, 650, game);
             
             resolve();
         });

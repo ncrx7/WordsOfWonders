@@ -50,7 +50,7 @@ class letterCellManager {
             console.log("create letter cell" + this.letterCells.length);
             setTimeout(() => {
                 resolve();
-            }, 200);
+            }, 150);
         });
     }
 
