@@ -20,11 +20,10 @@ class letterCellManager {
     }
 
     getCellFromArrayByIndex(index) {
-        if(this.checkUndefinedIndex(index))
-        {
+        if (this.checkUndefinedIndex(index)) {
             return this.letterCells[index];
         }
-        else{
+        else {
             return -1;
         }
     }
@@ -34,19 +33,18 @@ class letterCellManager {
     }
 
     checkUndefinedIndex(index) {
-        if (index < this.letterCells.length + 1){
+        if (index < this.letterCells.length + 1) {
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
 
-    CreateLetterCell(container, x, y, letter, letterManagerInstance) {
+    CreateLetterCell(container, x, y, letter, letterManagerInstance, letterGroup) {
         return new Promise((resolve) => {
             let letterCellSprite = Sprite.from("rect");
-            
-            const cell = new letterCell(x, y, letterManagerInstance.letterObjects.get(letter), letterCellSprite, container, 90);
+            const cell = new letterCell(letterGroup, x, y, letterManagerInstance.letterObjects.get(letter), letterCellSprite, container, 90);
             this.addCellToArray(cell);
             //console.log("create letter cell" + cell.letterObject.letterChar);
             setTimeout(() => {
@@ -55,7 +53,20 @@ class letterCellManager {
         });
     }
 
+    moveLetterToLetterCell(inputWord) {
+        console.log("moveLetterToLetterCell HAS WORKED!!: " + inputWord);
+        for (const letterObject of this.letterCells) { //TODO: METHODS WORKS WITH O(N^2) TIME, MAKE THIS PROCESS MORE OPTIMIZED ALGORITHM
+            for (const wordGroup of letterObject.letterGroup) {
+                //letterObject.textObject.
+                if (wordGroup == inputWord) {
+                    letterObject.rectSprite.alpha = 0.2;
+                    console.log("RECT HAS BEEN ALPHAD!!");
+                    console.log("letter object letter group is: " + wordGroup);
 
+                }
+            }
+        }
+    }
 }
 
 const letterCellManagerInstance = new letterCellManager();

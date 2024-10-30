@@ -1,13 +1,14 @@
 import { Container, Sprite, Graphics } from "pixi.js";
 
 export default class letterCell {
-    constructor(positionX, positionY, letterObject, rectSprite, game, rightMargin) {
+    constructor(letterGroup, positionX, positionY, letterObject, rectSprite, game, rightMargin) {
         this.positionX = positionX;
         this.positionY = positionY;
         //this.letterAbove = letterAbove;
         this.rectSprite = rectSprite;
         this.rightMargin = rightMargin;
-        this.letterObject = letterObject //TODO: CREATE A LETTER CLASS AND HOLD THE DATA LETTERS ABOUVE SHUFFLE
+        this.letterObject = letterObject 
+        this.letterGroup = letterGroup;
 
         game.addChild(rectSprite);
         this.setRectSpritePosition();

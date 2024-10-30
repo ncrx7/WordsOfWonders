@@ -1,6 +1,7 @@
 import { Container, Sprite, Graphics, Text, Assets } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
-import { WORDS } from "./sceneInitializer";
+import { WORDS } from "./sceneInitializer"; //TODO: I WILL REMOVE THE DEPENDENCY SCENEINITIALIZER FROM INPUT MANAGER. ACCORDING TO THIS, CREATE A METHOD TO SET WORD IN SI. .
+import letterCellManagerInstance from "./letterCellManager";
 
 //DEV-NOTE(BATUHAN UYSAL): ---I MADE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE TO MANAGE THE PLAYER INPUTS AND EVENTS FROM ONE PLACE ON THE WHOLE GAME---
 class inputManager {
@@ -61,6 +62,7 @@ class inputManager {
         if(WORDS.includes(this.inputWord))
         {
             console.log("CORRECT!!");
+            letterCellManagerInstance.moveLetterToLetterCell(this.inputWord);
             
         }
         else
@@ -79,7 +81,7 @@ class inputManager {
     onPointerMoveOnGameContainer(eventArgs) {
         if (this.isDragging) {
             let currentPointerPosition = eventArgs.data.global;
-            console.log("Pointer is moving on game container!!!!");
+            //console.log("Pointer is moving on game container!!!!");
 
             this.setInputLine(currentPointerPosition.x, currentPointerPosition.y);
         }

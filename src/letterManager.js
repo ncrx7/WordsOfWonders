@@ -75,6 +75,8 @@ class letterManager {
             resolve();
         });
     }
+
+
 }
 
 const letterManagerInstance = new letterManager();
