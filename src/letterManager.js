@@ -1,6 +1,7 @@
 import { Container, Sprite, Graphics, Text, Assets } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
 import letter from "./letter";
+import uiAnimationManagerInstance from "./uiAnimationManager";
 
 //DEV-NOTE(BATUHAN UYSAL): ---I MADE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE TO MANAGE ALL LETTER FROM ONE PLACE ON THE WHOLE GAME---
 class letterManager {
@@ -13,9 +14,9 @@ class letterManager {
         }
         this.letters = [];
         this.letterObjects = new Map();
-        this.letterPositions = [];
+        this.letterFixedPositionsOnScene = [];
         this.shuffleSprite;
-        this.isPositionDataDefined = false;
+        this.isFixedPositionDataDefined = false;
     }
 
     setLettersFromWords(words) {
@@ -31,16 +32,15 @@ class letterManager {
         //console.log("letters chars: " + this.letters);
     }
 
-    setLettersFixedPositionsData()
-    {
-        this.letterPositions = [ [GAME_WIDTH / 4 * 1.3, 550], [GAME_WIDTH / 2 + GAME_WIDTH / 4 * 0.85, 550], [GAME_WIDTH / 2 + GAME_WIDTH / 25, 450], [GAME_WIDTH / 2 + GAME_WIDTH / 25, 630] ]
+    setLettersFixedPositionsData() {
+        this.letterFixedPositionsOnScene = [[GAME_WIDTH / 4 * 1.3, 550], [GAME_WIDTH / 2 + GAME_WIDTH / 4 * 0.85, 550], [GAME_WIDTH / 2 + GAME_WIDTH / 25, 450], [GAME_WIDTH / 2 + GAME_WIDTH / 25, 630]]
         //console.log("poses: " + this.letterPositions[0][0]);
-        this.isPositionDataDefined = true;
+        this.isFixedPositionDataDefined = true;
     }
 
     createLetters(x, y, game) { //DEV-NOTE(Batuhan Uysal): ---I CREATE A LETTER OBJECT FOR ALL THE LETTER/CHAR--- //TODO: LETTER SCALE ANIMATION
         return new Promise(async (resolve) => {
-            
+
             //TODO: HERE WILL BE MOVE
             let letterHoldercircleSprite = Sprite.from("circle");
             letterHoldercircleSprite.pivot.set(letterHoldercircleSprite.width / 2, letterHoldercircleSprite.height / 2);
@@ -73,25 +73,37 @@ class letterManager {
                 //textObject.cursor = 'pointer';
                 //textObject.on("pointer")
                 letterContainer.addChild(textObject);
-        
-                const letterObject = new letter(this.letterPositions[i][0], this.letterPositions[i][1], char, textObject);
+
+                const letterObject = new letter(this.letterFixedPositionsOnScene[i][0], this.letterFixedPositionsOnScene[i][1], char, textObject);
                 this.letterObjects.set(char, letterObject);
                 //console.log("MAP: " + this.letterObjects.get(char).positionX);
                 await new Promise(resolve => setTimeout(resolve, 50));
             }
-                
+
             resolve();
         });
     }
 
-    shuffleLetters()
-    {
-        if(this.isPositionDataDefined)
-        {
-            console.log("shuffle letters!!");
+    shuffleLetters() {
+        if (this.isFixedPositionDataDefined) {
+            //console.log("shuffle letters!!");
+            let positionIndexes = [0, 1, 2, 3];
+            for (const letterObject of this.letterObjects.values()) {
+                const random = Math.floor(Math.random() * positionIndexes.length);
+                const positionIndex = positionIndexes[random];
+                if (random > -1 && random < positionIndexes.length) {
+                    positionIndexes.splice(random, 1); 
+                }
+                //delete positionIndexes[randomPositionIndex];
 
+                const newLetterObjectPositionX = this.letterFixedPositionsOnScene[positionIndex][0];
+                const newLetterObjectPositionY = this.letterFixedPositionsOnScene[positionIndex][1];
+                //console.log(newLetterObjectPositionX + "----------" + newLetterObjectPositionY)
+
+                uiAnimationManagerInstance.moveLetterToTarget(letterObject.textObject, newLetterObjectPositionX, newLetterObjectPositionY, 1, () => { })
+            }
         }
-        
+
     }
 
 }

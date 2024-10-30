@@ -71,7 +71,7 @@ class letterCellManager {
 
                     cloneTextObjectToMove.position.set(letterCellObject.letterObject.positionX, letterCellObject.letterObject.positionY);
 
-                    uiAnimationManager.moveLetterToRelationCell(cloneTextObjectToMove,
+                    uiAnimationManager.moveLetterToTarget(cloneTextObjectToMove,
                         letterCellObject.positionX + letterCellObject.letterObject.textObject.width / 2,
                         letterCellObject.positionY + letterCellObject.letterObject.textObject.height / 4,
                         1.5, //TODO: ALL LETTER CELL SETTINGS CAN BE SET ON THE SCENE INIT WITH A METHOD HERE

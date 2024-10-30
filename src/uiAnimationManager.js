@@ -31,7 +31,7 @@ class uiAnimationManager {
         });
     }
 
-    moveLetterToRelationCell(textObject, targetCellPositionX, targetCellPositionY, moveDuration, callback)
+    moveLetterToTarget(textObject, targetCellPositionX, targetCellPositionY, moveDuration, callback)
     {
         gsap.to(textObject.position, {
             duration: moveDuration, 
@@ -55,13 +55,6 @@ class uiAnimationManager {
             repeat: -1,
             yoyo: true,
             ease: "sine.easeInOut",
-/*             onComplete: () => {
-                gsap.to(sprite, {
-                    alpha: 0,
-                    duration: fadeAnimDurationTime,
-                    onComplete: callBack    
-                })
-            } */
         });
     }
 }
