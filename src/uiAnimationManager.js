@@ -47,11 +47,12 @@ class uiAnimationManager {
 
     playNowContainerAnimation(playNowContainer)
     {
+        console.log("play now container animation!!");
         gsap.to(playNowContainer, {
             pixi: {
-                scale: 0.85,
+                scale: 0.8,
             },
-            duration: 0.5,
+            duration: 0.7,
             repeat: -1,
             yoyo: true,
             ease: "sine.easeInOut",

@@ -69,7 +69,7 @@ class letterCellManager {
                         align: 'center',
                     });
 
-                    cloneTextObjectToMove.position.set(letterCellObject.letterObject.positionX, letterCellObject.letterObject.positionY);
+                    cloneTextObjectToMove.position.set(sceneInitializerInstance.previewWordContainer.position.x, sceneInitializerInstance.previewWordContainer.position.y);
 
                     uiAnimationManager.moveLetterToTarget(cloneTextObjectToMove,
                         letterCellObject.positionX + letterCellObject.letterObject.textObject.width / 2,

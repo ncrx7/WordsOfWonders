@@ -21,6 +21,7 @@ class sceneInitializer {
         letterManagerInstance.setLettersFromWords(WORDS);
 
         this.playNowContainer = new Container();
+        this.previewWordContainer = new Container();
     }
 
 
@@ -29,6 +30,7 @@ class sceneInitializer {
         //console.log("set scene from scene initiliazer");
         await this.SetBackground(game, 0.2, false);
         await this.setPlayNowRect(game, 50);
+        await this.setPreviewWord(game, 400);
         await this.SetBotLetterContainer(game);
         await this.SetTopLetterCellContainer(game);
         await this.setSceneInputEvents(game);
@@ -90,6 +92,40 @@ class sceneInitializer {
         });
     }
 
+    setPreviewWord(game, bottomMargin)
+    {
+        return new Promise((resolve) => {
+            let previewBackgroundSprite = Sprite.from("rect");
+            previewBackgroundSprite.width = 75;
+            previewBackgroundSprite.height = 60;
+            previewBackgroundSprite.pivot.set(previewBackgroundSprite.texture.width / 2, previewBackgroundSprite.texture.height / 2);
+            previewBackgroundSprite.tint = 0xFF7F00;
+
+            let previewText = new Text("", {
+                fontFamily: 'Arial',
+                fontSize: 30,
+                fill: 0xFFFFFF,
+                align: 'center',
+            });
+            previewText.pivot.set(previewText.width / 2, previewText.height / 2);
+
+            previewBackgroundSprite.position.set(0, 0);
+            previewText.position.set(0, 0);
+
+            this.previewWordContainer.pivot.set(0.5, 0.5);
+            this.previewWordContainer.position.set(GAME_WIDTH / 2, GAME_HEIGHT - bottomMargin);
+
+            this.previewWordContainer.addChild(previewBackgroundSprite);
+            this.previewWordContainer.addChild(previewText);
+
+            game.addChild(this.previewWordContainer);
+            
+            this.previewWordContainer.visible = false;
+
+            resolve();
+        });
+    }
+
     SetBotLetterContainer(game) {
         return new Promise(async (resolve) => {
             await letterManagerInstance.createLetters(100, 650, game);
@@ -139,7 +175,6 @@ class sceneInitializer {
             inputManagerInstance.addShuffleEvent(game);
         });
     }
-
 
 }
 

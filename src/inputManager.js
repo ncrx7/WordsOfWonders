@@ -1,6 +1,6 @@
 import { Container, Sprite, Graphics, Text, Assets } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
-import { WORDS } from "./sceneInitializer"; //TODO: I WILL REMOVE THE DEPENDENCY SCENEINITIALIZER FROM INPUT MANAGER. ACCORDING TO THIS, CREATE A METHOD TO SET WORD IN SI. .
+import sceneInitializerInstance, { WORDS } from "./sceneInitializer"; //TODO: I WILL REMOVE THE DEPENDENCY SCENEINITIALIZER FROM INPUT MANAGER. ACCORDING TO THIS, CREATE A METHOD TO SET WORD IN SI. .
 import letterCellManagerInstance from "./letterCellManager";
 import letterManagerInstance from "./letterManager";
 
@@ -22,7 +22,9 @@ class inputManager {
         this.mouseDownStartingPosY;
 
         this.inputWord = "";
-        this.inputTextObjectOnInteract = [];
+        this.inputTextObjectsOnInteract = [];
+
+        this.inputWordsFound = [];
     }
 
     addSceneEvents(game) {
@@ -63,20 +65,23 @@ class inputManager {
         this.createInputLine(container);
 
         this.inputWord += eventArgs.currentTarget.text;
+        sceneInitializerInstance.previewWordContainer.visible = true;
+        sceneInitializerInstance.previewWordContainer.children[1].text = this.inputWord;
+        sceneInitializerInstance.previewWordContainer.children[0].width = this.inputWord.length * 50;
 
         this.setTextPropertiesOnInteract(eventArgs.currentTarget);
-        this.inputTextObjectOnInteract.push(eventArgs.currentTarget);
+        this.inputTextObjectsOnInteract.push(eventArgs.currentTarget);
 
         console.log("input word" + this.inputWord);
     }
 
     onClickUpLetterObject(eventArgs, container) {
         //TODO: COMPRASE INPUT WORD AND WORD ARRAY IF EXIST START THE LETTER PLACE CELL ALGORTIHM
-        if(WORDS.includes(this.inputWord))
+        if(WORDS.includes(this.inputWord) && !this.inputWordsFound.includes(this.inputWord))
         {
             console.log("CORRECT!!");
             letterCellManagerInstance.findRelationCell(this.inputWord, container);
-            
+            this.inputWordsFound.push(this.inputWord);
         }
         else
         {
@@ -89,6 +94,7 @@ class inputManager {
         
         this.inputLineGraphic.clear();
         this.inputWord = "";
+        sceneInitializerInstance.previewWordContainer.visible = false;
         this.clearInputLines(container);
         this.setTextPropertiesOutInteract();
     }
@@ -108,9 +114,11 @@ class inputManager {
             if(!this.inputWord.includes(eventArgs.currentTarget.text))
             {
                 this.inputWord += eventArgs.currentTarget.text;
+                sceneInitializerInstance.previewWordContainer.children[1].text = this.inputWord;
+                sceneInitializerInstance.previewWordContainer.children[0].width = this.inputWord.length * 50;
 
                 this.setTextPropertiesOnInteract(eventArgs.currentTarget);
-                this.inputTextObjectOnInteract.push(eventArgs.currentTarget);
+                this.inputTextObjectsOnInteract.push(eventArgs.currentTarget);
                 //TODO: MAKE A ORANGE CIRCLE AROUND THE LETTER AND MAKE LETTER WHITE AND DISPLAY THE WORD UI ABOVE AND FIX INPUT LINE IN HOVER POS
 
                 this.createInputLine(container);
@@ -162,7 +170,7 @@ class inputManager {
 
     setTextPropertiesOutInteract()
     {
-        for (const textObject of this.inputTextObjectOnInteract) {
+        for (const textObject of this.inputTextObjectsOnInteract) {
             textObject.style.fill = 0xFF7F00;
             textObject.scale.set(1, 1);
         }
