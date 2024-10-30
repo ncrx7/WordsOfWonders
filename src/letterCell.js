@@ -4,11 +4,11 @@ export default class letterCell {
     constructor(letterGroup, positionX, positionY, letterObject, rectSprite, game, rightMargin) {
         this.positionX = positionX;
         this.positionY = positionY;
-        //this.letterAbove = letterAbove;
         this.rectSprite = rectSprite;
         this.rightMargin = rightMargin;
         this.letterObject = letterObject 
         this.letterGroup = letterGroup;
+        this.isCellFull = false;
 
         game.addChild(rectSprite);
         this.setRectSpritePosition();

@@ -20,7 +20,7 @@ export default class Game extends Container {
       //DEV-NOTE(BATUHAN UYSAL): !!!!IF WE DONT USE THIS SPRITE AGAIN IN-GAME, WE HAVE TO DELETE THIS SPRITE FROM THE MEMORY TO OPTIMIZE MEMORY ALLOCATION!!!!
       //sprite.destroy({ children: true, texture: true, baseTexture: true }); 
       //console.log("callback animation workd")
-      sceneInitializerInstance.SetScene(this);
+      sceneInitializerInstance.SetInitialScene(this);
     });
 
     

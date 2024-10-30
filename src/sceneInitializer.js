@@ -25,22 +25,32 @@ class sceneInitializer {
 
 
 
-    async SetScene(game) {
+    async SetInitialScene(game) {
         //console.log("set scene from scene initiliazer");
-        await this.SetBackground(game, 0.2);
+        await this.SetBackground(game, 0.2, false);
         await this.setPlayNowRect(game, 50);
         await this.SetBotLetterContainer(game);
         await this.SetTopLetterCellContainer(game);
-        await this.setInputEvents(game);
+        await this.setSceneInputEvents(game);
     }
 
-    SetBackground(game, delayAfterLoadBackground) {
+    async setGameFinishScene(container) {
+        await this.SetBackground(container, 0.2, true);
+        await this.setPlayNowRect(container, 200);
+        await this.setCustomText("Batuhan Uysal", 65, GAME_WIDTH / 2, GAME_HEIGHT / 2 - 100, container);
+        await this.setCustomText("Thank you very much ", 40, GAME_WIDTH / 2, GAME_HEIGHT / 2, container);
+        await this.setCustomText("for this great opportunity.", 40, GAME_WIDTH / 2, GAME_HEIGHT / 2 + 50, container);
+    }
+
+    SetBackground(game, delayAfterLoadBackground, tint) {
         return new Promise((resolve) => {
             let background = Sprite.from("background");
             background.width = GAME_WIDTH;
             background.height = GAME_HEIGHT;
             game.addChild(background);
 
+            if(tint) background.tint = 0x555555;
+            
             setTimeout(() => {
                 resolve();
             }, delayAfterLoadBackground * 1000);
@@ -53,7 +63,7 @@ class sceneInitializer {
             playNowRect.width = GAME_WIDTH / 4 * 3;
             playNowRect.height = GAME_HEIGHT / 10;
             playNowRect.pivot.set(playNowRect.texture.width / 2, playNowRect.texture.height / 2);
-            
+
             let playNowText = new Text("PLAY NOW!", {
                 fontFamily: 'Arial',
                 fontSize: 30,
@@ -63,7 +73,7 @@ class sceneInitializer {
 
             playNowText.pivot.set(playNowText.width / 2, playNowText.height / 2);
 
-            playNowRect.position.set(0, 0); 
+            playNowRect.position.set(0, 0);
             playNowText.position.set(0, 0);
 
             this.playNowContainer.pivot.set(0.5, 0.5);
@@ -105,7 +115,24 @@ class sceneInitializer {
         });
     }
 
-    setInputEvents(game) {
+    setCustomText(text, fontSize, textPositionX, textPositionY, container) {
+        return new Promise(async (resolve) => {
+            const customTextObject = new Text(text, {
+                fontFamily: 'Arial',
+                fontSize: fontSize,
+                fill: 0xFF7F00,
+                align: 'center',
+            });
+
+            customTextObject.pivot.set(customTextObject.width / 2, customTextObject.height / 2);
+            customTextObject.position.set(textPositionX, textPositionY);
+            container.addChild(customTextObject);
+
+            resolve();
+        });
+    }
+
+    setSceneInputEvents(game) {
         return new Promise(async (resolve) => {
             inputManagerInstance.addEventAllTheLetterObject(letterManagerInstance.letterObjects, game);
             inputManagerInstance.addSceneEvents(game);

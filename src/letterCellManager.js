@@ -2,6 +2,7 @@ import { Container, Sprite, Graphics, Text } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
 import letterCell from "./letterCell";
 import uiAnimationManager from "./uiAnimationManager";
+import sceneInitializerInstance from "./sceneInitializer";
 
 //DEV-NOTE(BATUHAN UYSAL): ---I MADE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE TO MANAGE THE LETTER CELLS FROM ONE PLACE ON THE WHOLE GAME---
 class letterCellManager {
@@ -67,15 +68,19 @@ class letterCellManager {
                         fill: 0xFFFFFF,
                         align: 'center',
                     });
-                    
-                    cloneTextObjectToMove.position.set(letterCellObject.letterObject.positionX, letterCellObject.letterObject.positionY );
+
+                    cloneTextObjectToMove.position.set(letterCellObject.letterObject.positionX, letterCellObject.letterObject.positionY);
 
                     uiAnimationManager.moveLetterToRelationCell(cloneTextObjectToMove,
                         letterCellObject.positionX + letterCellObject.letterObject.textObject.width / 2,
                         letterCellObject.positionY + letterCellObject.letterObject.textObject.height / 4,
-                         1.5, //TODO: ALL LETTER CELL SETTINGS CAN BE SET ON THE SCENE INIT WITH A METHOD HERE
-                        () => {letterCellObject.rectSprite.tint = 0xFF7F00;}
-                        );
+                        1.5, //TODO: ALL LETTER CELL SETTINGS CAN BE SET ON THE SCENE INIT WITH A METHOD HERE
+                        () => {
+                            letterCellObject.rectSprite.tint = 0xFF7F00;
+                            letterCellObject.isCellFull = true;
+                            this.checkCellFullness(gameContainer);
+                        }
+                    );
 
                     gameContainer.addChild(cloneTextObjectToMove);
                 }
@@ -83,6 +88,20 @@ class letterCellManager {
         }
     }
 
+    checkCellFullness(gameContainer) {
+        let fullnessCellCounter = 0;
+        for (const letterCell of this.letterCells) {
+            if (letterCell.isCellFull) {
+                fullnessCellCounter++;
+                if (fullnessCellCounter == this.letterCells.length) {
+                    console.log("GAME HAS FINISHED SUCCESFULLY!!");
+                    gameContainer.removeChildren();
+                    sceneInitializerInstance.setGameFinishScene(gameContainer);
+                }
+            }
+        }
+
+    }
 
 }
 
