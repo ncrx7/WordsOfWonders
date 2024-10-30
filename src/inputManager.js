@@ -39,8 +39,8 @@ class inputManager {
             letterObject.textObject.cursor = 'pointer';
             letterObject.textObject
                 .on("pointerdown", this.onClickDownLetterObject.bind(this))
-                .on("pointerup", this.onClickUpLetterObject.bind(this))
-                .on('pointerupoutside', this.onClickUpLetterObject.bind(this))
+                .on("pointerup", (event) => this.onClickUpLetterObject(event, game))
+                .on('pointerupoutside', (event) => this.onClickUpLetterObject(event, game))
                 .on("pointerover", this.onHoverLetterObjectWhileDrag.bind(this));     
         }
     }
@@ -57,12 +57,12 @@ class inputManager {
         
     }
 
-    onClickUpLetterObject() {
+    onClickUpLetterObject(eventArgs, container) {
         //TODO: COMPRASE INPUT WORD AND WORD ARRAY IF EXIST START THE LETTER PLACE CELL ALGORTIHM
         if(WORDS.includes(this.inputWord))
         {
             console.log("CORRECT!!");
-            letterCellManagerInstance.moveLetterToLetterCell(this.inputWord);
+            letterCellManagerInstance.moveLetterToLetterCell(this.inputWord, container);
             
         }
         else

@@ -22,4 +22,9 @@ export default class letter {
     {
         this.rectSprite.scale.set(0.3, 0.3);
     }
+
+    getLetter()
+    {
+        return "this.textObject.text";
+    }
 }

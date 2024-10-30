@@ -1,4 +1,4 @@
-import { Container, Sprite, Graphics } from "pixi.js";
+import { Container, Sprite, Graphics, Text } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
 import letterCell from "./letterCell";
 
@@ -53,16 +53,24 @@ class letterCellManager {
         });
     }
 
-    moveLetterToLetterCell(inputWord) {
+    moveLetterToLetterCell(inputWord, gameContainer) {
         console.log("moveLetterToLetterCell HAS WORKED!!: " + inputWord);
         for (const letterObject of this.letterCells) { //TODO: METHODS WORKS WITH O(N^2) TIME, MAKE THIS PROCESS MORE OPTIMIZED ALGORITHM
             for (const wordGroup of letterObject.letterGroup) {
                 //letterObject.textObject.
                 if (wordGroup == inputWord) {
                     letterObject.rectSprite.alpha = 0.2;
-                    console.log("RECT HAS BEEN ALPHAD!!");
-                    console.log("letter object letter group is: " + wordGroup);
-
+                    //console.log("RECT HAS BEEN ALPHAD!!");
+                    //console.log("letter object letter group is: " + wordGroup);
+                    let cloneTextObjectToMove = new Text("letterObject.", {
+                        fontFamily: 'Arial',
+                        fontSize: 50,
+                        fill: 0xFF7F00,
+                        align: 'center',
+                    });
+                    console.log("clontext text: " + cloneTextObjectToMove.text );
+                    
+                    gameContainer.addChild(cloneTextObjectToMove);
                 }
             }
         }
