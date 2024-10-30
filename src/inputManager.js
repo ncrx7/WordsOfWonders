@@ -1,7 +1,8 @@
 import { Container, Sprite, Graphics, Text, Assets } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
+import { WORDS } from "./sceneInitializer";
 
-//DEV-NOTE(BATUHAN UYSAL): ---I MADE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE TO MANAGE THE PLAYER INPUTS FROM ONE PLACE ON THE WHOLE GAME---
+//DEV-NOTE(BATUHAN UYSAL): ---I MADE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE TO MANAGE THE PLAYER INPUTS AND EVENTS FROM ONE PLACE ON THE WHOLE GAME---
 class inputManager {
     constructor() {
         if (inputManager.instance) {
@@ -39,8 +40,7 @@ class inputManager {
                 .on("pointerdown", this.onClickDownLetterObject.bind(this))
                 .on("pointerup", this.onClickUpLetterObject.bind(this))
                 .on('pointerupoutside', this.onClickUpLetterObject.bind(this))
-                .on("pointerover", this.onHoverLetterObjectWhileDrag.bind(this));
-
+                .on("pointerover", this.onHoverLetterObjectWhileDrag.bind(this));     
         }
     }
 
@@ -58,6 +58,17 @@ class inputManager {
 
     onClickUpLetterObject() {
         //TODO: COMPRASE INPUT WORD AND WORD ARRAY IF EXIST START THE LETTER PLACE CELL ALGORTIHM
+        if(WORDS.includes(this.inputWord))
+        {
+            console.log("CORRECT!!");
+            
+        }
+        else
+        {
+            console.log("UNCORRECT!!");
+            
+        }
+
         this.isDragging = false;
         console.log("Clicked up letter object" + this.isDragging);
         this.inputLineGraphic.visible = false;
@@ -81,7 +92,7 @@ class inputManager {
             {
                 this.inputWord += eventArgs.currentTarget.text;
                 //TODO: MAKE A ORANGE CIRCLE AROUND THE LETTER AND MAKE LETTER WHITE AND DISPLAY THE WORD UI ABOVE AND FIX INPUT LINE IN HOVER POS
-                console.log("ITS HOVERED" + this.inputWord);
+                console.log("ITS HOVERED" + " -" +this.inputWord);
             }
             else
             {

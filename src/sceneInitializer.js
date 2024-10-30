@@ -6,7 +6,7 @@ import letterCellManagerInstance from "./letterCellManager";
 import letterManagerInstance from "./letterManager";
 import inputManagerInstance from "./inputManager";
 
-
+export const WORDS = ["GOLD", "GOD", "DOG", "LOG"];
 //DEV-NOTE(BATUHAN UYSAL): ---I MAKE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE FOR UI ANIMATIONS ON THE WHOLE GAME---
 class sceneInitializer {
     constructor() {
@@ -16,8 +16,8 @@ class sceneInitializer {
         else {
             sceneInitializer.instance = this;
         }
-        const words = ["GOLD", "GOD", "DOG", "LOG"]; //DEV-NOTE(Batuhan Uysal): ---I MADE IT LIKE THAT BECAUSE IT WOULD BE EASY FOR DEVELOP IF WE WANT TO MORE THAN ONE LEVEL---
-        letterManagerInstance.setLettersFromWords(words);
+        //const words = ["GOLD", "GOD", "DOG", "LOG"]; //DEV-NOTE(Batuhan Uysal): ---I MADE IT LIKE THAT BECAUSE IT WOULD BE EASY FOR DEVELOP IF WE WANT TO MORE THAN ONE LEVEL---
+        letterManagerInstance.setLettersFromWords(WORDS);
         //console.log("scene initializer instantiated" + letters.length);
     }
 
