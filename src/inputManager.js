@@ -2,6 +2,7 @@ import { Container, Sprite, Graphics, Text, Assets } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
 import { WORDS } from "./sceneInitializer"; //TODO: I WILL REMOVE THE DEPENDENCY SCENEINITIALIZER FROM INPUT MANAGER. ACCORDING TO THIS, CREATE A METHOD TO SET WORD IN SI. .
 import letterCellManagerInstance from "./letterCellManager";
+import letterManagerInstance from "./letterManager";
 
 //DEV-NOTE(BATUHAN UYSAL): ---I MADE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE TO MANAGE THE PLAYER INPUTS AND EVENTS FROM ONE PLACE ON THE WHOLE GAME---
 class inputManager {
@@ -29,6 +30,13 @@ class inputManager {
         game.cursor = 'pointer'
 
         game.on("pointermove", this.onPointerMoveOnGameContainer.bind(this));
+    }
+
+    addShuffleEvent(game)
+    {
+        letterManagerInstance.shuffleSprite.eventMode = "static";
+        letterManagerInstance.shuffleSprite.cursor = "pointer";
+        letterManagerInstance.shuffleSprite.on("pointerdown", this.onClickShuffleButton.bind(this));
     }
 
     addEventAllTheLetterObject(letterObjects, game) {
@@ -102,6 +110,11 @@ class inputManager {
             }
 
         }
+    }
+
+    onClickShuffleButton(eventArgs)
+    {
+        letterManagerInstance.shuffleLetters();
     }
 
     setInputLine(currentPointerPositionX, currentPointerPositionY)

@@ -59,7 +59,8 @@ class letterCellManager {
         for (const letterCellObject of this.letterCells) { //TODO: METHODS WORKS WITH O(N^2) TIME, MAKE THIS PROCESS MORE OPTIMIZED ALGORITHM
             for (const wordGroup of letterCellObject.letterGroup) {
                 if (wordGroup == inputWord) {
-                    letterCellObject.rectSprite.tint = 0xFF7F00;;
+                    //letterCellObject.rectSprite.tint = 0xFF7F00;
+
                     let cloneTextObjectToMove = new Text(letterCellObject.letterObject.textObject.text, {
                         fontFamily: 'Arial',
                         fontSize: 50,
@@ -68,8 +69,14 @@ class letterCellManager {
                     });
                     
                     cloneTextObjectToMove.position.set(letterCellObject.letterObject.positionX, letterCellObject.letterObject.positionY );
-                    console.log("clontext text: " + cloneTextObjectToMove.text );
-                    uiAnimationManager.moveLetterToRelationCell(cloneTextObjectToMove, letterCellObject.positionX , letterCellObject.positionY, 1.5);
+
+                    uiAnimationManager.moveLetterToRelationCell(cloneTextObjectToMove,
+                        letterCellObject.positionX + letterCellObject.letterObject.textObject.width / 2,
+                        letterCellObject.positionY + letterCellObject.letterObject.textObject.height / 4,
+                         1.5, //TODO: ALL LETTER CELL SETTINGS CAN BE SET ON THE SCENE INIT WITH A METHOD HERE
+                        () => {letterCellObject.rectSprite.tint = 0xFF7F00;}
+                        );
+
                     gameContainer.addChild(cloneTextObjectToMove);
                 }
             }

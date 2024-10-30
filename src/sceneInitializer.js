@@ -5,6 +5,7 @@ import letter from "./letter";
 import letterCellManagerInstance from "./letterCellManager";
 import letterManagerInstance from "./letterManager";
 import inputManagerInstance from "./inputManager";
+import uiAnimationManagerInstance from "./uiAnimationManager";
 
 export const WORDS = ["GOLD", "GOD", "DOG", "LOG"];
 //DEV-NOTE(BATUHAN UYSAL): ---I MAKE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE FOR UI ANIMATIONS ON THE WHOLE GAME---
@@ -18,14 +19,16 @@ class sceneInitializer {
         }
         //const words = ["GOLD", "GOD", "DOG", "LOG"]; //DEV-NOTE(Batuhan Uysal): ---I MADE IT LIKE THAT BECAUSE IT WOULD BE EASY FOR DEVELOP IF WE WANT TO MORE THAN ONE LEVEL---
         letterManagerInstance.setLettersFromWords(WORDS);
-        //console.log("scene initializer instantiated" + letters.length);
+
+        this.playNowContainer = new Container();
     }
 
 
 
     async SetScene(game) {
         //console.log("set scene from scene initiliazer");
-        await this.SetBackground(game, 1);
+        await this.SetBackground(game, 0.2);
+        await this.setPlayNowRect(game, 50);
         await this.SetBotLetterContainer(game);
         await this.SetTopLetterCellContainer(game);
         await this.setInputEvents(game);
@@ -40,7 +43,40 @@ class sceneInitializer {
 
             setTimeout(() => {
                 resolve();
-            }, delayAfterLoadBackground * 500);
+            }, delayAfterLoadBackground * 1000);
+        });
+    }
+
+    setPlayNowRect(game, bottomMargin) {
+        return new Promise((resolve) => {
+            let playNowRect = Sprite.from("playNowRect");
+            playNowRect.width = GAME_WIDTH / 4 * 3;
+            playNowRect.height = GAME_HEIGHT / 10;
+            playNowRect.pivot.set(playNowRect.texture.width / 2, playNowRect.texture.height / 2);
+            
+            let playNowText = new Text("PLAY NOW!", {
+                fontFamily: 'Arial',
+                fontSize: 30,
+                fill: 0xFFFFFF,
+                align: 'center',
+            });
+
+            playNowText.pivot.set(playNowText.width / 2, playNowText.height / 2);
+
+            playNowRect.position.set(0, 0); 
+            playNowText.position.set(0, 0);
+
+            this.playNowContainer.pivot.set(0.5, 0.5);
+            this.playNowContainer.position.set(GAME_WIDTH / 2, GAME_HEIGHT - bottomMargin);
+
+            this.playNowContainer.addChild(playNowRect);
+            this.playNowContainer.addChild(playNowText);
+
+            game.addChild(this.playNowContainer);
+
+            uiAnimationManagerInstance.playNowContainerAnimation(this.playNowContainer);
+
+            resolve();
         });
     }
 
@@ -73,6 +109,7 @@ class sceneInitializer {
         return new Promise(async (resolve) => {
             inputManagerInstance.addEventAllTheLetterObject(letterManagerInstance.letterObjects, game);
             inputManagerInstance.addSceneEvents(game);
+            inputManagerInstance.addShuffleEvent(game);
         });
     }
 

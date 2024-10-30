@@ -14,6 +14,8 @@ class letterManager {
         this.letters = [];
         this.letterObjects = new Map();
         this.letterPositions = [];
+        this.shuffleSprite;
+        this.isPositionDataDefined = false;
     }
 
     setLettersFromWords(words) {
@@ -33,7 +35,7 @@ class letterManager {
     {
         this.letterPositions = [ [GAME_WIDTH / 4 * 1.3, 550], [GAME_WIDTH / 2 + GAME_WIDTH / 4 * 0.85, 550], [GAME_WIDTH / 2 + GAME_WIDTH / 25, 450], [GAME_WIDTH / 2 + GAME_WIDTH / 25, 630] ]
         //console.log("poses: " + this.letterPositions[0][0]);
-        
+        this.isPositionDataDefined = true;
     }
 
     createLetters(x, y, game) { //DEV-NOTE(Batuhan Uysal): ---I CREATE A LETTER OBJECT FOR ALL THE LETTER/CHAR--- //TODO: LETTER SCALE ANIMATION
@@ -46,9 +48,15 @@ class letterManager {
             letterHoldercircleSprite.scale.set(0.045, 0.045);
             letterHoldercircleSprite.alpha = 0.4;
 
+            this.shuffleSprite = Sprite.from("shuffle");
+            this.shuffleSprite.pivot.set(this.shuffleSprite.width / 2, this.shuffleSprite.height / 2);
+            this.shuffleSprite.position.set(GAME_WIDTH / 2 + 30, 570);
+            this.shuffleSprite.scale.set(0.07, 0.07);
+
             let letterContainer = new Container();
             game.addChild(letterContainer);
             letterContainer.addChild(letterHoldercircleSprite);
+            letterContainer.addChild(this.shuffleSprite);
             letterContainer.position.x -= 28;
 
             this.setLettersFixedPositionsData();
@@ -69,13 +77,22 @@ class letterManager {
                 const letterObject = new letter(this.letterPositions[i][0], this.letterPositions[i][1], char, textObject);
                 this.letterObjects.set(char, letterObject);
                 //console.log("MAP: " + this.letterObjects.get(char).positionX);
-                await new Promise(resolve => setTimeout(resolve, 300));
+                await new Promise(resolve => setTimeout(resolve, 50));
             }
                 
             resolve();
         });
     }
 
+    shuffleLetters()
+    {
+        if(this.isPositionDataDefined)
+        {
+            console.log("shuffle letters!!");
+
+        }
+        
+    }
 
 }
 

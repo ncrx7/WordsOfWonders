@@ -18,6 +18,14 @@
         {
           "name": "circle",
           "srcs": "assets/Sprites/circle.png"
+        },
+        {
+          "name": "shuffle",
+          "srcs": "assets/Sprites/suffle.png"
+        },
+        {
+          "name": "playNowRect",
+          "srcs": "assets/Sprites/install0.png"
         }
       ]
     },

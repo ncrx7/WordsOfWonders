@@ -31,7 +31,7 @@ class uiAnimationManager {
         });
     }
 
-    moveLetterToRelationCell(textObject, targetCellPositionX, targetCellPositionY, moveDuration)
+    moveLetterToRelationCell(textObject, targetCellPositionX, targetCellPositionY, moveDuration, callback)
     {
         gsap.to(textObject.position, {
             duration: moveDuration, 
@@ -40,7 +40,28 @@ class uiAnimationManager {
             ease: "power1.out", 
             onComplete: () => {
                 console.log("Letter has reached to the cell belongs!!");
+                callback();
             }
+        });
+    }
+
+    playNowContainerAnimation(playNowContainer)
+    {
+        gsap.to(playNowContainer, {
+            pixi: {
+                scale: 0.85,
+            },
+            duration: 0.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.easeInOut",
+/*             onComplete: () => {
+                gsap.to(sprite, {
+                    alpha: 0,
+                    duration: fadeAnimDurationTime,
+                    onComplete: callBack    
+                })
+            } */
         });
     }
 }
