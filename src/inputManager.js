@@ -22,6 +22,7 @@ class inputManager {
         this.mouseDownStartingPosY;
 
         this.inputWord = "";
+        this.inputTextObjectOnInteract = [];
     }
 
     addSceneEvents(game) {
@@ -61,8 +62,11 @@ class inputManager {
         this.mouseDownStartingPosY = eventArgs.data.global.y;
         this.inputLineGraphic.visible = true;
         this.inputWord += eventArgs.currentTarget.text;
+
+        this.setTextPropertiesOnInteract(eventArgs.currentTarget);
+        this.inputTextObjectOnInteract.push(eventArgs.currentTarget);
+
         console.log("input word" + this.inputWord);
-        
     }
 
     onClickUpLetterObject(eventArgs, container) {
@@ -84,6 +88,7 @@ class inputManager {
         this.inputLineGraphic.visible = false;
         this.inputLineGraphic.clear();
         this.inputWord = "";
+        this.setTextPropertiesOutInteract();
     }
 
     onPointerMoveOnGameContainer(eventArgs) {
@@ -101,8 +106,12 @@ class inputManager {
             if(!this.inputWord.includes(eventArgs.currentTarget.text))
             {
                 this.inputWord += eventArgs.currentTarget.text;
+                this.setTextPropertiesOnInteract(eventArgs.currentTarget);
+                this.inputTextObjectOnInteract.push(eventArgs.currentTarget);
                 //TODO: MAKE A ORANGE CIRCLE AROUND THE LETTER AND MAKE LETTER WHITE AND DISPLAY THE WORD UI ABOVE AND FIX INPUT LINE IN HOVER POS
                 console.log("ITS HOVERED" + " -" +this.inputWord);
+                this.mouseDownStartingPosX = eventArgs.data.global.x;
+                this.mouseDownStartingPosY = eventArgs.data.global.y;
             }
             else
             {
@@ -123,6 +132,20 @@ class inputManager {
         this.inputLineGraphic.lineStyle(6, 0xFF7F00);
         this.inputLineGraphic.moveTo(this.mouseDownStartingPosX, this.mouseDownStartingPosY);
         this.inputLineGraphic.lineTo(currentPointerPositionX, currentPointerPositionY);
+    }
+
+    setTextPropertiesOnInteract(textObject)
+    {
+        textObject.style.fill = 0xFFFFFF;
+        textObject.scale.set(1.1, 1.1);
+    }
+
+    setTextPropertiesOutInteract()
+    {
+        for (const textObject of this.inputTextObjectOnInteract) {
+            textObject.style.fill = 0xFF7F00;
+            textObject.scale.set(1, 1);
+        }
     }
 }
 
