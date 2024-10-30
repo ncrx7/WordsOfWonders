@@ -1,6 +1,7 @@
 import { Container, Sprite, Graphics, Text } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
 import letterCell from "./letterCell";
+import uiAnimationManager from "./uiAnimationManager";
 
 //DEV-NOTE(BATUHAN UYSAL): ---I MADE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE TO MANAGE THE LETTER CELLS FROM ONE PLACE ON THE WHOLE GAME---
 class letterCellManager {
@@ -53,28 +54,29 @@ class letterCellManager {
         });
     }
 
-    moveLetterToLetterCell(inputWord, gameContainer) {
+    findRelationCell(inputWord, gameContainer) {
         console.log("moveLetterToLetterCell HAS WORKED!!: " + inputWord);
-        for (const letterObject of this.letterCells) { //TODO: METHODS WORKS WITH O(N^2) TIME, MAKE THIS PROCESS MORE OPTIMIZED ALGORITHM
-            for (const wordGroup of letterObject.letterGroup) {
-                //letterObject.textObject.
+        for (const letterCellObject of this.letterCells) { //TODO: METHODS WORKS WITH O(N^2) TIME, MAKE THIS PROCESS MORE OPTIMIZED ALGORITHM
+            for (const wordGroup of letterCellObject.letterGroup) {
                 if (wordGroup == inputWord) {
-                    letterObject.rectSprite.alpha = 0.2;
-                    //console.log("RECT HAS BEEN ALPHAD!!");
-                    //console.log("letter object letter group is: " + wordGroup);
-                    let cloneTextObjectToMove = new Text("letterObject.", {
+                    letterCellObject.rectSprite.tint = 0xFF7F00;;
+                    let cloneTextObjectToMove = new Text(letterCellObject.letterObject.textObject.text, {
                         fontFamily: 'Arial',
                         fontSize: 50,
-                        fill: 0xFF7F00,
+                        fill: 0xFFFFFF,
                         align: 'center',
                     });
-                    console.log("clontext text: " + cloneTextObjectToMove.text );
                     
+                    cloneTextObjectToMove.position.set(letterCellObject.letterObject.positionX, letterCellObject.letterObject.positionY );
+                    console.log("clontext text: " + cloneTextObjectToMove.text );
+                    uiAnimationManager.moveLetterToRelationCell(cloneTextObjectToMove, letterCellObject.positionX , letterCellObject.positionY, 1.5);
                     gameContainer.addChild(cloneTextObjectToMove);
                 }
             }
         }
     }
+
+
 }
 
 const letterCellManagerInstance = new letterCellManager();

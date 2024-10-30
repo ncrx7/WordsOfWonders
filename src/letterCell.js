@@ -18,8 +18,10 @@ export default class letterCell {
     setRectSpritePosition() {
         if (this.rectSprite) {
             this.rectSprite.x = this.positionX - this.rightMargin;
-            //console.log("pos: " + this.rectSprite.x);
             this.rectSprite.y = this.positionY;
+
+            this.positionX = this.rectSprite.x;
+            this.positionY = this.rectSprite.y;
         }
     }
 

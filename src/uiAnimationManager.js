@@ -30,6 +30,19 @@ class uiAnimationManager {
             }
         });
     }
+
+    moveLetterToRelationCell(textObject, targetCellPositionX, targetCellPositionY, moveDuration)
+    {
+        gsap.to(textObject.position, {
+            duration: moveDuration, 
+            x: targetCellPositionX, 
+            y: targetCellPositionY, 
+            ease: "power1.out", 
+            onComplete: () => {
+                console.log("Letter has reached to the cell belongs!!");
+            }
+        });
+    }
 }
 
 const uiAnimationManagerInstance = new uiAnimationManager();

@@ -62,7 +62,7 @@ class inputManager {
         if(WORDS.includes(this.inputWord))
         {
             console.log("CORRECT!!");
-            letterCellManagerInstance.moveLetterToLetterCell(this.inputWord, container);
+            letterCellManagerInstance.findRelationCell(this.inputWord, container);
             
         }
         else
