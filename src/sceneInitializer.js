@@ -27,8 +27,8 @@ class sceneInitializer {
     async setInitialScene(gameContainer) {
         //console.log("set scene from scene initiliazer");
         await this.setBackground(gameContainer, 0.2, false);
-        await this.setPlayNowRect(gameContainer, 50);
-        await this.setPreviewWord(gameContainer, 400);
+        await this.setPlayNowContainer(gameContainer, 50);
+        await this.setPreviewWordContainer(gameContainer, 400);
         await this.setBotLetterContainer(gameContainer);
         await this.setTopLetterCellContainer(gameContainer);
         await this.setSceneInputEvents(gameContainer);
@@ -36,7 +36,7 @@ class sceneInitializer {
 
     async setGameFinishScene(gameContainer) {
         await this.setBackground(gameContainer, 0.2, true);
-        await this.setPlayNowRect(gameContainer, 200);
+        await this.setPlayNowContainer(gameContainer, 200);
         await this.setCustomText("Batuhan Uysal", 65, GAME_WIDTH / 2, GAME_HEIGHT / 2 - 100, gameContainer);
         await this.setCustomText("Thank you very much ", 40, GAME_WIDTH / 2, GAME_HEIGHT / 2, gameContainer);
         await this.setCustomText("for this great opportunity.", 40, GAME_WIDTH / 2, GAME_HEIGHT / 2 + 50, gameContainer);
@@ -57,7 +57,7 @@ class sceneInitializer {
         });
     }
 
-    setPlayNowRect(gameContainer, bottomMargin) {
+    setPlayNowContainer(gameContainer, bottomMargin) {
         return new Promise((resolve) => {
             let playNowRect = Sprite.from("playNowRect");
             playNowRect.width = GAME_WIDTH / 4 * 3;
@@ -90,7 +90,7 @@ class sceneInitializer {
         });
     }
 
-    setPreviewWord(gameContainer, bottomMargin)
+    setPreviewWordContainer(gameContainer, bottomMargin)
     {
         return new Promise((resolve) => {
             let previewBackgroundSprite = Sprite.from("rect");

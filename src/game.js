@@ -14,7 +14,7 @@ export default class Game extends Container {
 
   init() {
     let logoSprite = Sprite.from("logo");
-    this.SetLogoSprite(logoSprite);
+    this.setLogoSprite(logoSprite);
     uiAnimationManager.playLogoAnimationOnStart(logoSprite, 0.6, 1, 1.5, 0.5, () => {
       this.removeChild(logoSprite);
       //DEV-NOTE(BATUHAN UYSAL): !!!!IF WE DONT USE THIS SPRITE AGAIN IN-GAME, WE HAVE TO DELETE THIS SPRITE FROM THE MEMORY TO OPTIMIZE MEMORY ALLOCATION!!!!
@@ -27,7 +27,7 @@ export default class Game extends Container {
     
   }
 
-  SetLogoSprite(sprite) {
+  setLogoSprite(sprite) {
     sprite.anchor.set(0.5);
     sprite.scale.set(0.5);
     this.addChild(sprite);
