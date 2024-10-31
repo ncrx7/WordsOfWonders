@@ -5,13 +5,13 @@ import letterCellManagerInstance from "./letterCellManager";
 import letterManagerInstance from "./letterManager";
 
 //DEV-NOTE(BATUHAN UYSAL): ---I MADE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE TO MANAGE THE PLAYER INPUTS AND EVENTS FROM ONE PLACE ON THE WHOLE GAME---
-class inputManager {
+class inputEventManager {
     constructor() {
-        if (inputManager.instance) {
-            return inputManager.instance;
+        if (inputEventManager.instance) {
+            return inputEventManager.instance;
         }
         else {
-            inputManager.instance = this;
+            inputEventManager.instance = this;
         }
         this.isDragging = false;
 
@@ -115,6 +115,12 @@ class inputManager {
             {
                 this.inputWord += eventArgs.currentTarget.text;
                 sceneInitializerInstance.previewWordContainer.children[1].text = this.inputWord;
+                
+              /*   sceneInitializerInstance.previewWordContainer.children[1].position.set(
+                    sceneInitializerInstance.previewWordContainer.children[1].position.x - 10,
+                    sceneInitializerInstance.previewWordContainer.children[1].position.y
+                ); */
+
                 sceneInitializerInstance.previewWordContainer.children[0].width = this.inputWord.length * 50;
 
                 this.setTextPropertiesOnInteract(eventArgs.currentTarget);
@@ -177,5 +183,5 @@ class inputManager {
     }
 }
 
-const inputManagerInstance = new inputManager();
+const inputManagerInstance = new inputEventManager();
 export default inputManagerInstance;

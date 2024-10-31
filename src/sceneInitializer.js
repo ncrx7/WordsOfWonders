@@ -1,10 +1,8 @@
 import { Container, Sprite, Graphics, Text, TextStyle } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
-import letterCell from "./letterCell";
-import letter from "./letter";
 import letterCellManagerInstance from "./letterCellManager";
 import letterManagerInstance from "./letterManager";
-import inputManagerInstance from "./inputManager";
+import inputEventManagerInstance from "./inputEventManager";
 import uiAnimationManagerInstance from "./uiAnimationManager";
 
 export const WORDS = ["GOLD", "GOD", "DOG", "LOG"];
@@ -17,7 +15,7 @@ class sceneInitializer {
         else {
             sceneInitializer.instance = this;
         }
-        //const words = ["GOLD", "GOD", "DOG", "LOG"]; //DEV-NOTE(Batuhan Uysal): ---I MADE IT LIKE THAT BECAUSE IT WOULD BE EASY FOR DEVELOP IF WE WANT TO MORE THAN ONE LEVEL---
+        //DEV-NOTE(Batuhan Uysal): ---I MADE IT LIKE THAT BECAUSE IT WOULD BE EASY FOR DEVELOP IF WE WANT TO MORE THAN ONE LEVEL---
         letterManagerInstance.setLettersFromWords(WORDS);
 
         this.playNowContainer = new Container();
@@ -170,9 +168,9 @@ class sceneInitializer {
 
     setSceneInputEvents(game) {
         return new Promise(async (resolve) => {
-            inputManagerInstance.addEventAllTheLetterObject(letterManagerInstance.letterObjects, game);
-            inputManagerInstance.addSceneEvents(game);
-            inputManagerInstance.addShuffleEvent(game);
+            inputEventManagerInstance.addEventAllTheLetterObject(letterManagerInstance.letterObjects, game);
+            inputEventManagerInstance.addSceneEvents(game);
+            inputEventManagerInstance.addShuffleEvent(game);
         });
     }
 
