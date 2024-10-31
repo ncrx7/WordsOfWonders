@@ -19,7 +19,7 @@ class tutorialManager {
         this.isTutorialActive;
 
         gsap.ticker.add(() => {
-            this.updateLoop();
+            this.tutorialCheckLoop();
           });
     }
 
@@ -60,7 +60,7 @@ class tutorialManager {
         }
     }
 
-    updateLoop()
+    tutorialCheckLoop()
     {
         if(timeManagerInstance.sceneTimeCounter > 2 && !this.isTutorialActive)
         {
