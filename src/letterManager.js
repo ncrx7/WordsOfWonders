@@ -38,7 +38,7 @@ class letterManager {
         this.isFixedPositionDataDefined = true;
     }
 
-    createLetters(x, y, game) { //DEV-NOTE(Batuhan Uysal): ---I CREATE A LETTER OBJECT FOR ALL THE LETTER/CHAR--- //TODO: LETTER SCALE ANIMATION
+    createLetters(x, y, botLetterContainer) { //DEV-NOTE(Batuhan Uysal): ---I CREATE A LETTER OBJECT FOR ALL THE LETTER/CHAR--- //TODO: LETTER SCALE ANIMATION
         return new Promise(async (resolve) => {
 
             //TODO: HERE WILL BE MOVE
@@ -53,11 +53,10 @@ class letterManager {
             this.shuffleSprite.position.set(GAME_WIDTH / 2 + 30, 570);
             this.shuffleSprite.scale.set(0.07, 0.07);
 
-            let letterContainer = new Container();
-            game.addChild(letterContainer);
-            letterContainer.addChild(letterHoldercircleSprite);
-            letterContainer.addChild(this.shuffleSprite);
-            letterContainer.position.x -= 28;
+            botLetterContainer.addChild(letterHoldercircleSprite);
+            botLetterContainer.addChild(this.shuffleSprite);
+           
+            botLetterContainer.position.x -= 28;
 
             this.setLettersFixedPositionsData();
             for (let i = 0; i < this.letters.length; i++) {
@@ -72,7 +71,7 @@ class letterManager {
                 //textObject.eventMode = 'static';
                 //textObject.cursor = 'pointer';
                 //textObject.on("pointer")
-                letterContainer.addChild(textObject);
+                botLetterContainer.addChild(textObject);
 
                 const letterObject = new letter(this.letterFixedPositionsOnScene[i][0], this.letterFixedPositionsOnScene[i][1], char, textObject);
                 this.letterObjects.set(char, letterObject);

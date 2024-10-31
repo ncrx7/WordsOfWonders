@@ -20,6 +20,7 @@ class sceneInitializer {
 
         this.playNowContainer = new Container();
         this.previewWordContainer = new Container();
+        this.botLetterContainer = new Container();
     }
 
 
@@ -126,8 +127,8 @@ class sceneInitializer {
 
     setBotLetterContainer(gameContainer) {
         return new Promise(async (resolve) => {
-            await letterManagerInstance.createLetters(100, 650, gameContainer);
-
+            await letterManagerInstance.createLetters(100, 650, this.botLetterContainer);
+            gameContainer.addChild(this.botLetterContainer);
             resolve();
         });
     }
