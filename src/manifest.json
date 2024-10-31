@@ -26,6 +26,10 @@
         {
           "name": "playNowRect",
           "srcs": "assets/Sprites/install0.png"
+        },
+        {
+          "name": "hand",
+          "srcs": "assets/Sprites/hand.png"
         }
       ]
     },

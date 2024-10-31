@@ -2,6 +2,7 @@ import { Graphics } from "pixi.js";
 import sceneInitializerInstance, { WORDS } from "./sceneInitializer"; //TODO: I WILL REMOVE THE DEPENDENCY SCENEINITIALIZER FROM INPUT MANAGER. ACCORDING TO THIS, CREATE A METHOD TO SET WORD IN SI. .
 import letterCellManagerInstance from "./letterCellManager";
 import letterManagerInstance from "./letterManager";
+import timeManagerInstance from "./timeManager";
 
 //DEV-NOTE(BATUHAN UYSAL): ---I MADE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE TO MANAGE THE PLAYER INPUTS AND EVENTS FROM ONE PLACE ON THE WHOLE GAME---
 class inputEventManager {
@@ -99,6 +100,8 @@ class inputEventManager {
     }
 
     onPointerMoveOnGameContainer(eventArgs) {
+        timeManagerInstance.sceneTimeCounter = 0;
+
         if (this.isDragging) {
             let currentPointerPosition = eventArgs.data.global;
             //console.log("Pointer is moving on game container!!!!");

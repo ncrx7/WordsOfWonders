@@ -4,6 +4,8 @@ import letterCellManagerInstance from "./letterCellManager";
 import letterManagerInstance from "./letterManager";
 import inputEventManagerInstance from "./inputEventManager";
 import uiAnimationManagerInstance from "./uiAnimationManager";
+import timeManagerInstance from "./timeManager";
+import tutorialManagerInstance from "./tutorialManager";
 
 export const WORDS = ["GOLD", "GOD", "DOG", "LOG"];
 //DEV-NOTE(BATUHAN UYSAL): ---I MAKE THIS CLASS SINGLETON TO HAVE ONLY ONE INSTANCE FOR UI ANIMATIONS ON THE WHOLE GAME---
@@ -33,6 +35,9 @@ class sceneInitializer {
         await this.setBotLetterContainer(gameContainer);
         await this.setTopLetterCellContainer(gameContainer);
         await this.setSceneInputEvents(gameContainer);
+        await tutorialManagerInstance.createHandSprite(gameContainer);
+
+        timeManagerInstance.startUpdatingSceneTimeCounter();
     }
 
     async setGameFinishScene(gameContainer) {
@@ -174,6 +179,8 @@ class sceneInitializer {
             inputEventManagerInstance.addEventAllTheLetterObject(letterManagerInstance.letterObjects, gameContainer);
             inputEventManagerInstance.addSceneEvents(gameContainer);
             inputEventManagerInstance.addShuffleEvent(gameContainer);
+
+            resolve();
         });
     }
 

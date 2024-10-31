@@ -45,6 +45,19 @@ class uiAnimationManager {
         });
     }
 
+    moveSpriteToTarget(sprite, targetPositionX, targetPositionY, moveDuration, callback) {
+        gsap.to(sprite.position, {
+            duration: moveDuration,
+            x: targetPositionX,
+            y: targetPositionY,
+            ease: "power1.in",
+            onComplete: () => {
+                console.log("Sprite has reached the target position!");
+                if (callback) callback();
+            }
+        });
+    }
+
     playNowContainerAnimation(playNowContainer)
     {
         console.log("play now container animation!!");
