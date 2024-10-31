@@ -127,6 +127,8 @@ class sceneInitializer {
 
     setBotLetterContainer(gameContainer) {
         return new Promise(async (resolve) => {
+            await letterManagerInstance.createLetterHolderCircle(this.botLetterContainer);
+            await letterManagerInstance.createLetterShuffleButton(this.botLetterContainer);
             await letterManagerInstance.createLetters(100, 650, this.botLetterContainer);
             gameContainer.addChild(this.botLetterContainer);
             resolve();

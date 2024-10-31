@@ -38,24 +38,35 @@ class letterManager {
         this.isFixedPositionDataDefined = true;
     }
 
-    createLetters(x, y, botLetterContainer) { //DEV-NOTE(Batuhan Uysal): ---I CREATE A LETTER OBJECT FOR ALL THE LETTER/CHAR--- //TODO: LETTER SCALE ANIMATION
+    createLetterHolderCircle(botLetterContainer) {
         return new Promise(async (resolve) => {
-
-            //TODO: HERE WILL BE MOVE
             let letterHoldercircleSprite = Sprite.from("circle");
             letterHoldercircleSprite.pivot.set(letterHoldercircleSprite.width / 2, letterHoldercircleSprite.height / 2);
             letterHoldercircleSprite.position.set(GAME_WIDTH / 2 + 30, 570);
             letterHoldercircleSprite.scale.set(0.045, 0.045);
             letterHoldercircleSprite.alpha = 0.4;
 
+            botLetterContainer.addChild(letterHoldercircleSprite);
+
+            resolve();
+        });
+    }
+
+    createLetterShuffleButton(botLetterContainer) {
+        return new Promise(async (resolve) => {
             this.shuffleSprite = Sprite.from("shuffle");
             this.shuffleSprite.pivot.set(this.shuffleSprite.width / 2, this.shuffleSprite.height / 2);
             this.shuffleSprite.position.set(GAME_WIDTH / 2 + 30, 570);
             this.shuffleSprite.scale.set(0.07, 0.07);
 
-            botLetterContainer.addChild(letterHoldercircleSprite);
             botLetterContainer.addChild(this.shuffleSprite);
-           
+            
+            resolve();
+        });
+    }
+
+    createLetters(x, y, botLetterContainer) { //DEV-NOTE(Batuhan Uysal): ---I CREATE A LETTER OBJECT FOR ALL THE LETTER/CHAR--- //TODO: LETTER SCALE ANIMATION
+        return new Promise(async (resolve) => {
             botLetterContainer.position.x -= 28;
 
             this.setLettersFixedPositionsData();
@@ -68,9 +79,6 @@ class letterManager {
                     align: 'center',
                 });
 
-                //textObject.eventMode = 'static';
-                //textObject.cursor = 'pointer';
-                //textObject.on("pointer")
                 botLetterContainer.addChild(textObject);
 
                 const letterObject = new letter(this.letterFixedPositionsOnScene[i][0], this.letterFixedPositionsOnScene[i][1], char, textObject);
@@ -91,7 +99,7 @@ class letterManager {
                 const random = Math.floor(Math.random() * positionIndexes.length);
                 const positionIndex = positionIndexes[random];
                 if (random > -1 && random < positionIndexes.length) {
-                    positionIndexes.splice(random, 1); 
+                    positionIndexes.splice(random, 1);
                 }
                 //delete positionIndexes[randomPositionIndex];
 
