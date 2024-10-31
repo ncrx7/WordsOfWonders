@@ -1,5 +1,6 @@
 [EN]
 - First of all, thank you very much for giving me this opportunity.
+- In general, I programmed the project as event-driven system. I just used the update loop when only checking time.
 - I tried to program the scripts as systematically as I could.
 - That's why I followed the SOLID principles and took care to use design patterns where necessary.
 - I used the Single Responsibility principle in all my classes and this way I separated all dependencies from each other.
@@ -9,9 +10,11 @@
 - I programmed my letter class to work procedurally according to the words to be found defined in the array. I thought of creating procedurally in the cells according to these words, but since I did not have enough time for this, I created the cells in a hard-coded way.
 - I left some static some position information hardcoded, too.
 **- Since I left the "Tutorial" mechanic last, it was a bit incomplete. It doesn't return any errors, but it can also show the words that were found.
+- -- I hope to see you again, thank you in advance for your efforts for my project.
 
 [TR]
 - Öncelikle bana bu fırsatı tanıdığınız için çok teşekkür ederim.
+- Projeyi genel olarak event-driven şeklinde programladım. Sadece zamanı kontrol ederken update loop'unu kullandım.
 - Scriptleri elimden geldiğince sistemsel olarak programlaya çalıştım. 
 - Bu yüzden SOLID prensiplerine uydum ve gerektiği yerde design pattern kullanmaya özen gösterdim. 
 - Single Responsibility prensibini bütün sınıflarımda kullandım ve bu sayede bütün bağımlılıkları birbirinden ayırdım.
@@ -20,5 +23,6 @@
 - Runtime'da oluşturulmayacak olan ve sahnede sadece bir adet instance'ı olacak manager sınıflarını singleton design pattern ile oluşturdum.
 - Array de tanımlanan bulunacak kelimelere göre letter sınıfımın çalışmasını procedural olarak programladım. Cell'lerinde bu kelimelere uygun olarak procedural oluşmasını düşündüm ama buna vaktim yetmeyeceği için cell'leri hard coded bir şekilde oluşturdum.
 - Static bazı pozisyon bilgilerinide hardcoded olarak bıraktım.
-**- "Tutoriol" mekaniğini en son bıraktığım için biraz eksik kaldı. Herhangi bir hata döndürmüyor ama bulunmul kelimeleride gösterebiliyor.
+**- "Tutoriol" mekaniğini en sona bıraktığım için biraz eksik kaldı. Herhangi bir hata döndürmüyor ama bulunmuş kelimeleride gösterebiliyor.
+-- Umarım tekrar görüşürüz emekleriniz için şimdiden teşekkürler.
 
