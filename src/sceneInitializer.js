@@ -1,4 +1,4 @@
-import { Container, Sprite, Graphics, Text, TextStyle } from "pixi.js";
+import { Container, Sprite, Text } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
 import letterCellManagerInstance from "./letterCellManager";
 import letterManagerInstance from "./letterManager";

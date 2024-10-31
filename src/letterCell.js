@@ -1,4 +1,3 @@
-import { Container, Sprite, Graphics } from "pixi.js";
 
 export default class letterCell {
     constructor(letterGroup, positionX, positionY, letterObject, rectSprite, game, rightMargin) {

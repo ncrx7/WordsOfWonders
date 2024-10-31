@@ -1,5 +1,4 @@
-import { Container, Sprite, Graphics, Text, Assets } from "pixi.js";
-import { GAME_HEIGHT, GAME_WIDTH } from ".";
+import { Graphics } from "pixi.js";
 import sceneInitializerInstance, { WORDS } from "./sceneInitializer"; //TODO: I WILL REMOVE THE DEPENDENCY SCENEINITIALIZER FROM INPUT MANAGER. ACCORDING TO THIS, CREATE A METHOD TO SET WORD IN SI. .
 import letterCellManagerInstance from "./letterCellManager";
 import letterManagerInstance from "./letterManager";

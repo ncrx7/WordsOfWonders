@@ -1,5 +1,4 @@
-import { Container, Sprite, Graphics, Text } from "pixi.js";
-import { GAME_HEIGHT, GAME_WIDTH } from ".";
+import { Sprite, Text } from "pixi.js";
 import letterCell from "./letterCell";
 import uiAnimationManager from "./uiAnimationManager";
 import sceneInitializerInstance from "./sceneInitializer";

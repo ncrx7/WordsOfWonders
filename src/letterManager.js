@@ -1,4 +1,4 @@
-import { Container, Sprite, Graphics, Text, Assets } from "pixi.js";
+import { Container, Sprite, Text } from "pixi.js";
 import { GAME_HEIGHT, GAME_WIDTH } from ".";
 import letter from "./letter";
 import uiAnimationManagerInstance from "./uiAnimationManager";
