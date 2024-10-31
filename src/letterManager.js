@@ -12,7 +12,7 @@ class letterManager {
         else {
             letterManager.instance = this;
         }
-        this.letters = [];
+        this.gameWordlettersUnique = [];
         this.letterObjects = new Map();
         this.letterFixedPositionsOnScene = [];
         this.shuffleSprite;
@@ -28,7 +28,7 @@ class letterManager {
             });
         });
 
-        this.letters = Array.from(uniqueLetters);
+        this.gameWordlettersUnique = Array.from(uniqueLetters);
         //console.log("letters chars: " + this.letters);
     }
 
@@ -70,8 +70,8 @@ class letterManager {
             botLetterContainer.position.x -= 28;
 
             this.setLettersFixedPositionsData();
-            for (let i = 0; i < this.letters.length; i++) {
-                const char = this.letters[i];
+            for (let i = 0; i < this.gameWordlettersUnique.length; i++) {
+                const char = this.gameWordlettersUnique[i];
                 const textObject = new Text(char, {
                     fontFamily: 'Arial',
                     fontSize: 50,

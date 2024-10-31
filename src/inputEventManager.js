@@ -26,42 +26,42 @@ class inputEventManager {
         this.inputWordsFound = [];
     }
 
-    addSceneEvents(game) {
-        game.eventMode = 'static';
-        game.cursor = 'pointer'
+    addSceneEvents(gameContainer) {
+        gameContainer.eventMode = 'static';
+        gameContainer.cursor = 'pointer'
 
-        game.on("pointermove", this.onPointerMoveOnGameContainer.bind(this));
+        gameContainer.on("pointermove", this.onPointerMoveOnGameContainer.bind(this));
     }
 
-    addShuffleEvent(game)
+    addShuffleEvent(gameContainer)
     {
         letterManagerInstance.shuffleSprite.eventMode = "static";
         letterManagerInstance.shuffleSprite.cursor = "pointer";
         letterManagerInstance.shuffleSprite.on("pointerdown", this.onClickShuffleButton.bind(this));
     }
 
-    addEventAllTheLetterObject(letterObjects, container) {
+    addEventAllTheLetterObject(letterObjects, gameContainer) {
         //game.addChild(this.inputLineGraphic);
 
         for (const letterObject of letterObjects.values()) {
             letterObject.textObject.eventMode = 'static';
             letterObject.textObject.cursor = 'pointer';
             letterObject.textObject
-                .on("pointerdown", (event) => this.onClickDownLetterObject(event, container))
-                .on("pointerup", (event) => this.onClickUpLetterObject(event, container))
-                .on('pointerupoutside', (event) => this.onClickUpLetterObject(event, container))
-                .on("pointerover", (event) => this.onHoverLetterObjectWhileDrag(event, container));     
+                .on("pointerdown", (event) => this.onClickDownLetterObject(event, gameContainer))
+                .on("pointerup", (event) => this.onClickUpLetterObject(event, gameContainer))
+                .on('pointerupoutside', (event) => this.onClickUpLetterObject(event, gameContainer))
+                .on("pointerover", (event) => this.onHoverLetterObjectWhileDrag(event, gameContainer));     
         }
     }
 
 
-    onClickDownLetterObject(eventArgs, container) {
+    onClickDownLetterObject(eventArgs, gameContainer) {
         this.isDragging = true;
         console.log("Clicked down letter object" + this.isDragging + eventArgs.data.global);
         this.pointerDownStartingPosX = eventArgs.data.global.x;
         this.pointerDownStartingPosY = eventArgs.data.global.y;
 
-        this.createInputLine(container);
+        this.createInputLine(gameContainer);
 
         this.inputWord += eventArgs.currentTarget.text;
         sceneInitializerInstance.previewWordContainer.visible = true;
@@ -74,12 +74,12 @@ class inputEventManager {
         console.log("input word" + this.inputWord);
     }
 
-    onClickUpLetterObject(eventArgs, container) {
+    onClickUpLetterObject(eventArgs, gameContainer) {
         //TODO: COMPARE INPUT WORD AND WORD ARRAY IF EXIST START THE LETTER PLACE CELL ALGORTIHM
         if(WORDS.includes(this.inputWord) && !this.inputWordsFound.includes(this.inputWord))
         {
             console.log("CORRECT!!");
-            letterCellManagerInstance.findLetterRelationWithCell(this.inputWord, container);
+            letterCellManagerInstance.findLetterRelationWithCell(this.inputWord, gameContainer);
             this.inputWordsFound.push(this.inputWord);
         }
         else
@@ -94,7 +94,7 @@ class inputEventManager {
         this.inputLineGraphic.clear();
         this.inputWord = "";
         sceneInitializerInstance.previewWordContainer.visible = false;
-        this.clearInputLines(container);
+        this.clearInputLines(gameContainer);
         this.setTextPropertiesOutInteract();
     }
 
@@ -107,7 +107,7 @@ class inputEventManager {
         }
     }
 
-    onHoverLetterObjectWhileDrag(eventArgs, container) {
+    onHoverLetterObjectWhileDrag(eventArgs, gameContainer) {
         if(this.isDragging)
         {
             if(!this.inputWord.includes(eventArgs.currentTarget.text))
@@ -126,7 +126,7 @@ class inputEventManager {
                 this.inputTextObjectsOnInteract.push(eventArgs.currentTarget);
                 //TODO: MAKE A ORANGE CIRCLE AROUND THE LETTER AND MAKE LETTER WHITE AND DISPLAY THE WORD UI ABOVE AND FIX INPUT LINE IN HOVER POS
 
-                this.createInputLine(container);
+                this.createInputLine(gameContainer);
 
                 this.pointerDownStartingPosX = eventArgs.data.global.x;
                 this.pointerDownStartingPosY = eventArgs.data.global.y;
@@ -145,11 +145,11 @@ class inputEventManager {
     }
 
     //TODO: MOVE INPUT LINE METHODS ANOTHER CLASS NAMED INPUTLINEMANAGER.JS
-    createInputLine(game)
+    createInputLine(gameContainer)
     {
         this.inputLineGraphic = new Graphics();
         this.inputLinesArray.push(this.inputLineGraphic); 
-        game.addChild(this.inputLineGraphic);
+        gameContainer.addChild(this.inputLineGraphic);
     }
 
     updateInputLine(currentPointerPositionX, currentPointerPositionY)
@@ -160,10 +160,10 @@ class inputEventManager {
         this.inputLineGraphic.lineTo(currentPointerPositionX, currentPointerPositionY);
     }
 
-    clearInputLines(container)
+    clearInputLines(gameContainer)
     {
         for (const inputLine of this.inputLinesArray) {
-            container.removeChild(inputLine);
+            gameContainer.removeChild(inputLine);
         }
     }
 
