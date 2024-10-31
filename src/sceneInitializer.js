@@ -15,8 +15,8 @@ class sceneInitializer {
         else {
             sceneInitializer.instance = this;
         }
-        //DEV-NOTE(Batuhan Uysal): ---I MADE IT LIKE THAT BECAUSE IT WOULD BE EASY FOR DEVELOP IF WE WANT TO MORE THAN ONE LEVEL---
-        letterManagerInstance.setLettersFromWords(WORDS);
+        
+        letterManagerInstance.setLettersFromWords(WORDS); //DEV-NOTE(Batuhan Uysal): ---I MADE IT LIKE THAT BECAUSE IT WOULD BE EASY FOR DEVELOP IF WE WANT TO MORE THAN ONE LEVEL---
 
         this.playNowContainer = new Container();
         this.previewWordContainer = new Container();
@@ -24,30 +24,30 @@ class sceneInitializer {
 
 
 
-    async SetInitialScene(game) {
+    async setInitialScene(gameContainer) {
         //console.log("set scene from scene initiliazer");
-        await this.SetBackground(game, 0.2, false);
-        await this.setPlayNowRect(game, 50);
-        await this.setPreviewWord(game, 400);
-        await this.SetBotLetterContainer(game);
-        await this.SetTopLetterCellContainer(game);
-        await this.setSceneInputEvents(game);
+        await this.setBackground(gameContainer, 0.2, false);
+        await this.setPlayNowRect(gameContainer, 50);
+        await this.setPreviewWord(gameContainer, 400);
+        await this.setBotLetterContainer(gameContainer);
+        await this.setTopLetterCellContainer(gameContainer);
+        await this.setSceneInputEvents(gameContainer);
     }
 
-    async setGameFinishScene(container) {
-        await this.SetBackground(container, 0.2, true);
-        await this.setPlayNowRect(container, 200);
-        await this.setCustomText("Batuhan Uysal", 65, GAME_WIDTH / 2, GAME_HEIGHT / 2 - 100, container);
-        await this.setCustomText("Thank you very much ", 40, GAME_WIDTH / 2, GAME_HEIGHT / 2, container);
-        await this.setCustomText("for this great opportunity.", 40, GAME_WIDTH / 2, GAME_HEIGHT / 2 + 50, container);
+    async setGameFinishScene(gameContainer) {
+        await this.setBackground(gameContainer, 0.2, true);
+        await this.setPlayNowRect(gameContainer, 200);
+        await this.setCustomText("Batuhan Uysal", 65, GAME_WIDTH / 2, GAME_HEIGHT / 2 - 100, gameContainer);
+        await this.setCustomText("Thank you very much ", 40, GAME_WIDTH / 2, GAME_HEIGHT / 2, gameContainer);
+        await this.setCustomText("for this great opportunity.", 40, GAME_WIDTH / 2, GAME_HEIGHT / 2 + 50, gameContainer);
     }
 
-    SetBackground(game, delayAfterLoadBackground, tint) {
+    setBackground(gameContainer, delayAfterLoadBackground, tint) {
         return new Promise((resolve) => {
             let background = Sprite.from("background");
             background.width = GAME_WIDTH;
             background.height = GAME_HEIGHT;
-            game.addChild(background);
+            gameContainer.addChild(background);
 
             if(tint) background.tint = 0x555555;
             
@@ -57,7 +57,7 @@ class sceneInitializer {
         });
     }
 
-    setPlayNowRect(game, bottomMargin) {
+    setPlayNowRect(gameContainer, bottomMargin) {
         return new Promise((resolve) => {
             let playNowRect = Sprite.from("playNowRect");
             playNowRect.width = GAME_WIDTH / 4 * 3;
@@ -82,7 +82,7 @@ class sceneInitializer {
             this.playNowContainer.addChild(playNowRect);
             this.playNowContainer.addChild(playNowText);
 
-            game.addChild(this.playNowContainer);
+            gameContainer.addChild(this.playNowContainer);
 
             uiAnimationManagerInstance.playNowContainerAnimation(this.playNowContainer);
 
@@ -90,7 +90,7 @@ class sceneInitializer {
         });
     }
 
-    setPreviewWord(game, bottomMargin)
+    setPreviewWord(gameContainer, bottomMargin)
     {
         return new Promise((resolve) => {
             let previewBackgroundSprite = Sprite.from("rect");
@@ -116,7 +116,7 @@ class sceneInitializer {
             this.previewWordContainer.addChild(previewBackgroundSprite);
             this.previewWordContainer.addChild(previewText);
 
-            game.addChild(this.previewWordContainer);
+            gameContainer.addChild(this.previewWordContainer);
             
             this.previewWordContainer.visible = false;
 
@@ -124,32 +124,32 @@ class sceneInitializer {
         });
     }
 
-    SetBotLetterContainer(game) {
+    setBotLetterContainer(gameContainer) {
         return new Promise(async (resolve) => {
-            await letterManagerInstance.createLetters(100, 650, game);
+            await letterManagerInstance.createLetters(100, 650, gameContainer);
 
             resolve();
         });
     }
 
     //DEV-NOTE-TODO(BATUHAN UYSAL): ---HERE CAN BE PROCEDURAL BY CREATING A GRID SYSTEM AND INCLUDES LETTER AND CELL
-    SetTopLetterCellContainer(game) {
+    setTopLetterCellContainer(gameContainer) {
         return new Promise(async (resolve) => {
-            await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 1, 20, "G", letterManagerInstance, [WORDS[0], WORDS[1]]); //TODO: DEFINE LETTERMANAGER INSTANCE TO LETTERMANAGER INSTANCE
-            await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 2, 20, "O", letterManagerInstance, [WORDS[0]]);
-            await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 3, 20, "L", letterManagerInstance, [WORDS[0], WORDS[3]]);
-            await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 4, 20, "D", letterManagerInstance, [WORDS[0]]);
-            await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 1, 130, "O", letterManagerInstance, [WORDS[1]]);
-            await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 3, 130, "O", letterManagerInstance, [WORDS[3]]);
-            await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 1, 240, "D", letterManagerInstance, [WORDS[2], WORDS[1]]);
-            await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 2, 240, "O", letterManagerInstance, [WORDS[2]]);
-            await letterCellManagerInstance.CreateLetterCell(game, GAME_WIDTH / 4 * 3, 240, "G", letterManagerInstance, [WORDS[2], WORDS[3]]);
+            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 1, 20, "G", letterManagerInstance, [WORDS[0], WORDS[1]]); //TODO: DEFINE LETTERMANAGER INSTANCE TO LETTERMANAGER INSTANCE
+            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 2, 20, "O", letterManagerInstance, [WORDS[0]]);
+            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 3, 20, "L", letterManagerInstance, [WORDS[0], WORDS[3]]);
+            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 4, 20, "D", letterManagerInstance, [WORDS[0]]);
+            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 1, 130, "O", letterManagerInstance, [WORDS[1]]);
+            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 3, 130, "O", letterManagerInstance, [WORDS[3]]);
+            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 1, 240, "D", letterManagerInstance, [WORDS[2], WORDS[1]]);
+            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 2, 240, "O", letterManagerInstance, [WORDS[2]]);
+            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 3, 240, "G", letterManagerInstance, [WORDS[2], WORDS[3]]);
             //console.log(letterCellManagerInstance.getCellFromArrayByIndex(1));
             resolve();
         });
     }
 
-    setCustomText(text, fontSize, textPositionX, textPositionY, container) {
+    setCustomText(text, fontSize, textPositionX, textPositionY, gameContainer) {
         return new Promise(async (resolve) => {
             const customTextObject = new Text(text, {
                 fontFamily: 'Arial',
@@ -160,17 +160,17 @@ class sceneInitializer {
 
             customTextObject.pivot.set(customTextObject.width / 2, customTextObject.height / 2);
             customTextObject.position.set(textPositionX, textPositionY);
-            container.addChild(customTextObject);
+            gameContainer.addChild(customTextObject);
 
             resolve();
         });
     }
 
-    setSceneInputEvents(game) {
+    setSceneInputEvents(gameContainer) {
         return new Promise(async (resolve) => {
-            inputEventManagerInstance.addEventAllTheLetterObject(letterManagerInstance.letterObjects, game);
-            inputEventManagerInstance.addSceneEvents(game);
-            inputEventManagerInstance.addShuffleEvent(game);
+            inputEventManagerInstance.addEventAllTheLetterObject(letterManagerInstance.letterObjects, gameContainer);
+            inputEventManagerInstance.addSceneEvents(gameContainer);
+            inputEventManagerInstance.addShuffleEvent(gameContainer);
         });
     }
 
