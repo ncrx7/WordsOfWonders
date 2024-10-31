@@ -30,7 +30,7 @@ class uiAnimationManager {
             }
         });
     }
-
+    
     moveLetterToTarget(textObject, targetCellPositionX, targetCellPositionY, moveDuration, callback)
     {
         gsap.to(textObject.position, {

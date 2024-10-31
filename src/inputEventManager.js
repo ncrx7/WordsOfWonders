@@ -17,8 +17,8 @@ class inputEventManager {
         this.inputLineGraphic = new Graphics();
         this.inputLinesArray = [];
 
-        this.mouseDownStartingPosX;
-        this.mouseDownStartingPosY;
+        this.pointerDownStartingPosX;
+        this.pointerDownStartingPosY;
 
         this.inputWord = "";
         this.inputTextObjectsOnInteract = [];
@@ -58,8 +58,8 @@ class inputEventManager {
     onClickDownLetterObject(eventArgs, container) {
         this.isDragging = true;
         console.log("Clicked down letter object" + this.isDragging + eventArgs.data.global);
-        this.mouseDownStartingPosX = eventArgs.data.global.x;
-        this.mouseDownStartingPosY = eventArgs.data.global.y;
+        this.pointerDownStartingPosX = eventArgs.data.global.x;
+        this.pointerDownStartingPosY = eventArgs.data.global.y;
 
         this.createInputLine(container);
 
@@ -75,11 +75,11 @@ class inputEventManager {
     }
 
     onClickUpLetterObject(eventArgs, container) {
-        //TODO: COMPRASE INPUT WORD AND WORD ARRAY IF EXIST START THE LETTER PLACE CELL ALGORTIHM
+        //TODO: COMPARE INPUT WORD AND WORD ARRAY IF EXIST START THE LETTER PLACE CELL ALGORTIHM
         if(WORDS.includes(this.inputWord) && !this.inputWordsFound.includes(this.inputWord))
         {
             console.log("CORRECT!!");
-            letterCellManagerInstance.findRelationCell(this.inputWord, container);
+            letterCellManagerInstance.findLetterRelationWithCell(this.inputWord, container);
             this.inputWordsFound.push(this.inputWord);
         }
         else
@@ -128,8 +128,8 @@ class inputEventManager {
 
                 this.createInputLine(container);
 
-                this.mouseDownStartingPosX = eventArgs.data.global.x;
-                this.mouseDownStartingPosY = eventArgs.data.global.y;
+                this.pointerDownStartingPosX = eventArgs.data.global.x;
+                this.pointerDownStartingPosY = eventArgs.data.global.y;
             }
             else
             {
@@ -156,7 +156,7 @@ class inputEventManager {
     {
         this.inputLineGraphic.clear(); 
         this.inputLineGraphic.lineStyle(6, 0xFF7F00);
-        this.inputLineGraphic.moveTo(this.mouseDownStartingPosX, this.mouseDownStartingPosY);
+        this.inputLineGraphic.moveTo(this.pointerDownStartingPosX, this.pointerDownStartingPosY);
         this.inputLineGraphic.lineTo(currentPointerPositionX, currentPointerPositionY);
     }
 

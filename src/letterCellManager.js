@@ -42,10 +42,10 @@ class letterCellManager {
         }
     }
 
-    CreateLetterCell(container, x, y, letter, letterManagerInstance, letterGroup) {
+    createLetterCell(gameContainer, x, y, letter, letterManagerInstance, letterGroup) {
         return new Promise((resolve) => {
             let letterCellSprite = Sprite.from("rect");
-            const cell = new letterCell(letterGroup, x, y, letterManagerInstance.letterObjects.get(letter), letterCellSprite, container, 90);
+            const cell = new letterCell(letterGroup, x, y, letterManagerInstance.letterObjects.get(letter), letterCellSprite, gameContainer, 90);
             this.addCellToArray(cell);
             //console.log("create letter cell" + cell.letterObject.letterChar);
             setTimeout(() => {
@@ -54,13 +54,12 @@ class letterCellManager {
         });
     }
 
-    findRelationCell(inputWord, gameContainer) {
-        console.log("moveLetterToLetterCell HAS WORKED!!: " + inputWord);
+    findLetterRelationWithCell(inputWord, gameContainer) {
+        //console.log("moveLetterToLetterCell HAS WORKED!!: " + inputWord);
         for (const letterCellObject of this.letterCells) { //TODO: METHODS WORKS WITH O(N^2) TIME, MAKE THIS PROCESS MORE OPTIMIZED ALGORITHM
             for (const wordGroup of letterCellObject.letterGroup) {
                 if (wordGroup == inputWord) {
                     //letterCellObject.rectSprite.tint = 0xFF7F00;
-
                     let cloneTextObjectToMove = new Text(letterCellObject.letterObject.textObject.text, {
                         fontFamily: 'Arial',
                         fontSize: 50,
@@ -99,9 +98,7 @@ class letterCellManager {
                 }
             }
         }
-
     }
-
 }
 
 const letterCellManagerInstance = new letterCellManager();

@@ -138,15 +138,15 @@ class sceneInitializer {
     //DEV-NOTE-TODO(BATUHAN UYSAL): ---HERE CAN BE PROCEDURAL BY CREATING A GRID SYSTEM AND INCLUDES LETTER AND CELL
     setTopLetterCellContainer(gameContainer) {
         return new Promise(async (resolve) => {
-            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 1, 20, "G", letterManagerInstance, [WORDS[0], WORDS[1]]); //TODO: DEFINE LETTERMANAGER INSTANCE TO LETTERMANAGER INSTANCE
-            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 2, 20, "O", letterManagerInstance, [WORDS[0]]);
-            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 3, 20, "L", letterManagerInstance, [WORDS[0], WORDS[3]]);
-            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 4, 20, "D", letterManagerInstance, [WORDS[0]]);
-            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 1, 130, "O", letterManagerInstance, [WORDS[1]]);
-            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 3, 130, "O", letterManagerInstance, [WORDS[3]]);
-            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 1, 240, "D", letterManagerInstance, [WORDS[2], WORDS[1]]);
-            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 2, 240, "O", letterManagerInstance, [WORDS[2]]);
-            await letterCellManagerInstance.CreateLetterCell(gameContainer, GAME_WIDTH / 4 * 3, 240, "G", letterManagerInstance, [WORDS[2], WORDS[3]]);
+            await letterCellManagerInstance.createLetterCell(gameContainer, GAME_WIDTH / 4 * 1, 20, "G", letterManagerInstance, [WORDS[0], WORDS[1]]); //TODO: DEFINE LETTERMANAGER INSTANCE TO LETTERMANAGER INSTANCE
+            await letterCellManagerInstance.createLetterCell(gameContainer, GAME_WIDTH / 4 * 2, 20, "O", letterManagerInstance, [WORDS[0]]);
+            await letterCellManagerInstance.createLetterCell(gameContainer, GAME_WIDTH / 4 * 3, 20, "L", letterManagerInstance, [WORDS[0], WORDS[3]]);
+            await letterCellManagerInstance.createLetterCell(gameContainer, GAME_WIDTH / 4 * 4, 20, "D", letterManagerInstance, [WORDS[0]]);
+            await letterCellManagerInstance.createLetterCell(gameContainer, GAME_WIDTH / 4 * 1, 130, "O", letterManagerInstance, [WORDS[1]]);
+            await letterCellManagerInstance.createLetterCell(gameContainer, GAME_WIDTH / 4 * 3, 130, "O", letterManagerInstance, [WORDS[3]]);
+            await letterCellManagerInstance.createLetterCell(gameContainer, GAME_WIDTH / 4 * 1, 240, "D", letterManagerInstance, [WORDS[2], WORDS[1]]);
+            await letterCellManagerInstance.createLetterCell(gameContainer, GAME_WIDTH / 4 * 2, 240, "O", letterManagerInstance, [WORDS[2]]);
+            await letterCellManagerInstance.createLetterCell(gameContainer, GAME_WIDTH / 4 * 3, 240, "G", letterManagerInstance, [WORDS[2], WORDS[3]]);
             //console.log(letterCellManagerInstance.getCellFromArrayByIndex(1));
             resolve();
         });
