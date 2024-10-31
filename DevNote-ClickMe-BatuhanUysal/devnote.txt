@@ -1,6 +1,7 @@
 [EN]
 - First of all, thank you very much for giving me this opportunity.
 - In general, I programmed the project as event-driven system. I just used the update loop when only checking time.
+- I programmed all the methods and functions as asynchronous to prevent dependency bugs.
 - I tried to program the scripts as systematically as I could.
 - That's why I followed the SOLID principles and took care to use design patterns where necessary.
 - I used the Single Responsibility principle in all my classes and this way I separated all dependencies from each other.
@@ -15,6 +16,7 @@
 [TR]
 - Öncelikle bana bu fırsatı tanıdığınız için çok teşekkür ederim.
 - Projeyi genel olarak event-driven şeklinde programladım. Sadece zamanı kontrol ederken update loop'unu kullandım.
+- Bağımlılık hatalarını önlemek için tüm metot ve fonksiyonları asenkron olarak programladım.
 - Scriptleri elimden geldiğince sistemsel olarak programlaya çalıştım. 
 - Bu yüzden SOLID prensiplerine uydum ve gerektiği yerde design pattern kullanmaya özen gösterdim. 
 - Single Responsibility prensibini bütün sınıflarımda kullandım ve bu sayede bütün bağımlılıkları birbirinden ayırdım.
