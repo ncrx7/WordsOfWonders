@@ -41,7 +41,7 @@ class tutorialManager {
         this.handSprite.visible = state;
     }
 
-    async moveHand(targetX, targetY) {
+    async moveHand() {
         this.handSprite.visible = true;
         this.handSprite.position.set(GAME_WIDTH / 2, GAME_HEIGHT / 2); 
 
@@ -66,7 +66,7 @@ class tutorialManager {
         {
             this.isTutorialActive = true;
             console.log("working update" + "--" + this.isTutorialActive);
-            this.moveHand(50, 50);
+            this.moveHand();
         }
 
         if(timeManagerInstance.sceneTimeCounter < 0.3)
